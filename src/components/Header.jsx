@@ -6,7 +6,7 @@ import { FaUserCircle } from "react-icons/fa";
 
 export default function () {
   return (
-    <div className="header flex justify-between items-center py-3 px-6">
+    <div className="header flex justify-between items-center py-3 px-6 shadow-sm">
       <div className="logo flex items-center gap-2">
         <IoMdMenu size={20} />
         <img src="/images/youtubeLogo.png" alt="Youtube" className="w-24" />

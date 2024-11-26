@@ -1,12 +1,18 @@
 import "./App.css";
 import Header from "./components/Header.jsx";
+import Home from "./components/Home.jsx";
 import Sidebar from "./components/Sidebar.jsx";
 function App() {
   return (
     <>
       <Header />
-      <Sidebar />
-      <h2 className="bg-red-500">Hello</h2>
+
+      <div className="flex">
+        <Sidebar />
+        <div className=" w-full px-4 py-4">
+          <Home />
+        </div>
+      </div>
     </>
   );
 }
