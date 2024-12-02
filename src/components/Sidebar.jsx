@@ -11,13 +11,17 @@ import { MdOutlinePlaylistPlay } from "react-icons/md";
 import { MdHome } from "react-icons/md";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { MdOutlineSubscriptions } from "react-icons/md";
-
 import { SiYoutubeshorts } from "react-icons/si";
 import { AiOutlineLike } from "react-icons/ai";
 
-const Sidebar = () => {
+const Sidebar = ({ sideBarToggle }) => {
+  console.log(sideBarToggle);
   return (
-    <div className="h-screen overflow-y-scroll py-2 w-72 pl-6 pr-1 flex flex-col gap-1">
+    <div
+      className={`h-[100%] overflow-y-scroll py-2 w-72 pl-6 pr-1 ${
+        sideBarToggle ? "hidden" : "flex"
+      } flex-col gap-1`}
+    >
       <h2 className="hover:bg-gray-100 cursor-pointer transition-all px-2 py-2 flex items-center gap-2">
         <MdHome size={22} />
         Home
@@ -32,7 +36,7 @@ const Sidebar = () => {
         Subscriptions
       </h2>
 
-      <div className="border-t-2 bg-black"></div>
+      <div className="border-t-2  "></div>
 
       <h2 className="hover:bg-gray-100 cursor-pointer transition-all px-2 py-2 flex items-center gap-2">
         You {">"}{" "}
@@ -62,14 +66,14 @@ const Sidebar = () => {
         Liked videos
       </h2>
 
-      <div className="border-t-2 bg-black"></div>
+      <div className="border-t-2 "></div>
 
       <h2 className="hover:bg-gray-100 cursor-pointer transition-all px-2 py-2 flex items-center gap-2">
         <MdOutlineSubscriptions size={20} />
         Subscriptions
       </h2>
 
-      <div className="border-t-2 bg-black"></div>
+      <div className="border-t-2 "></div>
 
       <h2 className="hover:bg-gray-100 cursor-pointer transition-all px-2 py-2 flex items-center gap-2">
         <MdOutlineLocalFireDepartment size={20} />
@@ -91,7 +95,7 @@ const Sidebar = () => {
         Movies
       </h2>
 
-      <div className="border-t-2 bg-black"></div>
+      <div className="border-t-2 "></div>
 
       <h2 className="hover:bg-gray-100 cursor-pointer transition-all px-2 py-2 flex items-center gap-2">
         <CiSettings size={20} />
@@ -108,14 +112,15 @@ const Sidebar = () => {
         Help
       </h2>
 
-      <div className="border-t-2 bg-black"></div>
+      <div className="border-t-2  "></div>
 
       <p className="  cursor-pointer transition-all px-2 py-2">
-        About Press Copyright Contact us Creators Advertise Developers Terms
-        PrivacyPolicy & Safety How YouTube works Test new features
+        {/* About Press Copyright Contact us Creators Advertise Developers Terms
+        PrivacyPolicy & Safety How YouTube works Test new features */}
+        Abbas
       </p>
 
-      <div className="border-t-2 bg-black"></div>
+      <div className="border-t-2  "></div>
 
       <p className="hover:bg-gray-100 cursor-pointer transition-all px-2 py-2 flex items-center gap-2">
         &copy; Google LLC

@@ -3,13 +3,20 @@ import { GoSearch } from "react-icons/go";
 import { RiVideoUploadLine } from "react-icons/ri";
 import { FaRegBell } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-export default function () {
+export default function ({ sideBarToggle, setSideBarToggle }) {
+  const handleSideBarToggle = () => {
+    console.log(sideBarToggle);
+    setSideBarToggle(!sideBarToggle);
+  };
   return (
     <div className="header flex justify-between items-center py-3 px-6 shadow-sm">
       <div className="logo flex items-center gap-2">
-        <IoMdMenu size={20} />
-        <img src="/images/youtubeLogo.png" alt="Youtube" className="w-24" />
+        <IoMdMenu size={20} onClick={handleSideBarToggle} />
+        <Link to={"/"}>
+          <img src="/images/youtubeLogo.png" alt="Youtube" className="w-24" />
+        </Link>
       </div>
       <div className="search flex items-center gap-2 relative ">
         {" "}
@@ -23,6 +30,8 @@ export default function () {
         </div>
       </div>
       <div className="userOp flex gap-4">
+        <Link to="/login">login</Link>
+        <Link to="/signUp">Signup</Link>
         <RiVideoUploadLine size={20} />
         <FaRegBell size={20} />
         <FaUserCircle size={20} />

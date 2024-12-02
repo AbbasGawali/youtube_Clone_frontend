@@ -1,16 +1,23 @@
+import { useState } from "react";
 import "./App.css";
 import Header from "./components/Header.jsx";
 import Home from "./components/Home.jsx";
 import Sidebar from "./components/Sidebar.jsx";
+import { Outlet } from "react-router-dom";
 function App() {
+  const [sideBarToggle, setSideBarToggle] = useState(false);
+
   return (
     <>
-      <Header />
+      <Header
+        sideBarToggle={sideBarToggle}
+        setSideBarToggle={setSideBarToggle}
+      />
 
-      <div className="flex">
-        <Sidebar />
-        <div className=" w-full px-4 py-4">
-          <Home />
+      <div className="flex h-[calc(100vh-64px)]">
+        <Sidebar sideBarToggle={sideBarToggle} />
+        <div className=" w-full px-4 py-4 overflow-y-auto">
+          <Outlet />
         </div>
       </div>
     </>
