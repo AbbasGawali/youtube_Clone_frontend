@@ -30,11 +30,13 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
         </div>
       </div>
       <div className="userOp flex gap-4">
-        <Link to="/login">login</Link>
-        <Link to="/signUp">Signup</Link>
+
+        <Link to="/login" className="border p-1 px-4 rounded-full flex items-center gap-2"><FaUserCircle size={20} /> login</Link> 
+        
+{/*         
         <RiVideoUploadLine size={20} />
         <FaRegBell size={20} />
-        <FaUserCircle size={20} />
+        <FaUserCircle size={20} /> */}
       </div>
     </div>
   );
