@@ -11,22 +11,18 @@ const VideoView = () => {
   const [comments, setComments] = useState([]);
   const [channelData, setChannelData] = useState([]);
   const [videoUrl, setVideoUrl] = useState("");
-  console.log("video", video);
   useEffect(() => {
     // fetch videos
     const fetchData = async () => {
       const { data } = await axios.get(
         `http://localhost:8000/api/video/${video}`
       );
-      console.log(data, "data");
-      console.log(data, "video");
       if (data) {
         setVideoData(data.video);
         fetchChannelData(data.video.channelId);
         fetchVideoComments();
       }
       if (data?.video?.videoUrl) {
-        console.log("has url");
         setVideoUrl(data?.video?.videoUrl.split("v=")[1]);
       }
     };
@@ -37,8 +33,6 @@ const VideoView = () => {
     const { data } = await axios.get(
       `http://localhost:8000/api/channel/${cId}`
     );
-    console.log(data, "data");
-    console.log(data, "channel");
     if (data) {
       setChannelData(data.channel);
     }
@@ -48,21 +42,15 @@ const VideoView = () => {
       `http://localhost:8000/api/comment/videoComments/${video}`
     );
 
-    console.log(data, "comment");
     if (data) {
       setComments(data.comments);
     }
   };
 
-  console.log("channel", channelData);
-
-  console.log("videourl", videoUrl);
-  console.log("comments", comments);
   //   console.log("videourl", videoData.videoUrl.split("v=")[1]);
   //   src={videoData?.videoUrl?.split("v=")[1]}
   return (
-    <div className="flex ">
-      {/* <h2>{params.id}</h2> */}
+    <div className="flex "> 
       <div className=" h-[28rem] w-[45rem] ">
         <iframe
           className=" w-full h-full"

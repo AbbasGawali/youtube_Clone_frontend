@@ -8,6 +8,10 @@ import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
 import VideoView from "./components/VideoView.jsx";
 import ChannelDetail from "./components/ChannelDetail.jsx";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore.js";
+import UserAccount from "./components/UserAccount.jsx";
+import CreateChannel from "./components/CreateChannel.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -17,6 +21,8 @@ const appRouter = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/login", element: <Login /> },
       { path: "/signUp", element: <SignUp /> },
+      { path: "/userAccount/", element: <UserAccount /> },
+      { path: "/createChannel", element: <CreateChannel /> },
       { path: "/video/:id", element: <VideoView /> },
       { path: "/channel/:id", element: <ChannelDetail /> },
     ],
@@ -24,6 +30,8 @@ const appRouter = createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={appRouter} />
+    <Provider store={appStore}>
+      <RouterProvider router={appRouter} />
+    </Provider>
   </StrictMode>
 );

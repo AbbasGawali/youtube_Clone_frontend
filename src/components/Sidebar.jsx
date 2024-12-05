@@ -14,8 +14,7 @@ import { MdOutlineSubscriptions } from "react-icons/md";
 import { SiYoutubeshorts } from "react-icons/si";
 import { AiOutlineLike } from "react-icons/ai";
 
-const Sidebar = ({ sideBarToggle }) => {
-  console.log(sideBarToggle);
+const Sidebar = ({ sideBarToggle }) => { 
   return (
     <div
       className={`h-[100%] overflow-y-scroll py-2 w-72 pl-6 pr-1 ${

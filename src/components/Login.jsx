@@ -1,17 +1,27 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { setToken, setUserState } from "../utils/userSlice";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((store) => store.user.userDetails);
+
+  useEffect(() => {
+    if (user && Object.keys(user).length > 0) {
+      navigate("/");
+    }
+  }, [navigate, user]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     if (!formData.email || !formData.password) {
       toast.error("all fields are required");
     }
@@ -21,9 +31,10 @@ const SignUp = () => {
         email,
         password,
       });
-      console.log(data);
       if (data) {
         toast.success(data.message);
+        dispatch(setUserState(data.user));
+        dispatch(setToken(data.jwtToken));
       }
     } catch (error) {
       console.log(error);

@@ -11,7 +11,6 @@ const Comment = ({ createdAt, owner, description }) => {
         `http://localhost:8000/api/users/${owner}`
       );
 
-      console.log(data, "owner comment");
       if (data) {
         setCommentOwner(data.user);
       }
@@ -19,9 +18,8 @@ const Comment = ({ createdAt, owner, description }) => {
     fetchOwner();
   }, []);
 
-  console.log("commentOwner", commentOwner);
   return (
-    <div className="flex gap-4 bg-red-50 justify-between  px-2 py-2">
+    <div className="flex gap-4 bg-slate-100 justify-between  px-2 py-2">
       <div className="flex gap-2">
         <img
           className=" w-12 h-12 rounded-full border border-black"

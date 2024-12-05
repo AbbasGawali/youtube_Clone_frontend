@@ -3,25 +3,20 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const VideoCard = ({ videoId, title, thumbnailUrl, channelId }) => {
-  const [channelData, setChannelData] = useState([]);
-  console.log("channelid", channelId);
+  const [channelData, setChannelData] = useState([]); 
   useEffect(() => {
     // fetch videos
     const fetchData = async () => {
       const { data } = await axios.get(
         `http://localhost:8000/api/channel/${channelId}`
-      );
-      console.log(data, "data");
-      console.log(data.channel.channelName, "channelName");
+      ); 
       if (data) {
         setChannelData(data.channel);
       }
     };
     fetchData();
   }, []);
-
-  console.log(channelData, "channelData");
-  console.log(videoId, "vid");
+ 
   return (
     <div className="video_card w-96">
       <Link to={`/video/${videoId}`}>

@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const SignUp = () => {
@@ -11,10 +12,17 @@ const SignUp = () => {
     avatar: "",
   });
 
+  const navigate = useNavigate();
+  const user = useSelector((store) => store.user.userDetails);
+
+  useEffect(() => {
+    if (user && Object.keys(user).length > 0) {
+      navigate("/");
+    }
+  }, [navigate, user]);
+
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
-    console.log(formData);
+    e.preventDefault(); 
     if (
       !formData.email ||
       !formData.password ||
@@ -33,8 +41,7 @@ const SignUp = () => {
           password,
           avatar,
         }
-      );
-      console.log(data);
+      ); 
       if (data) {
         toast.success(data.message);
       }

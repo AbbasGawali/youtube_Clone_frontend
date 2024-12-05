@@ -1,15 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [videos, setvideos] = useState([]);
-
+  const userChannel = useSelector(
+    (store) => store.userChannel.userChannelDetails
+  );
+  console.log("userChannel from redux in home", userChannel)
   useEffect(() => {
     // fetch videos
     const fetchData = async () => {
       const { data } = await axios.get("http://localhost:8000/api/video/");
-      console.log(data);
       if (data) {
         setvideos(data.videos);
       }
