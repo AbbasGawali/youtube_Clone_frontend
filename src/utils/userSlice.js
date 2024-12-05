@@ -16,6 +16,7 @@ const userSlice = createSlice({
             state.token = ""
             localStorage.removeItem("ytCloneJWTToken");
         },
+        
         setUserState: (state, action) => {
             state.userDetails = action.payload;
             localStorage.setItem("ytCloneUserDetails", JSON.stringify(action.payload));

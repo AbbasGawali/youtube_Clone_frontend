@@ -8,8 +8,7 @@ const UserAccount = () => {
   const userDetails = useSelector((store) => store.user.userDetails);
   const userChannel = useSelector(
     (store) => store.userChannel.userChannelDetails
-  );
-  const [userChannels, setUserChannels] = useState([]);
+  ); 
   console.log(userDetails);
   const navigate = useNavigate();
 
@@ -17,24 +16,9 @@ const UserAccount = () => {
     if (!userDetails || Object.keys(userDetails).length <= 0) {
       toast.error("login required !");
       navigate("/");
-    } else {
-      //   fetchUserChannels();
     }
   }, [userDetails]);
-
-  //   const fetchUserChannels = async () => {
-  //     try {
-  //       let { data } = await axios.post(
-  //         "http://localhost:8000/api/channel/getmultipleChannels",
-  //         { channel: userDetails?.channel }
-  //       );
-  //       console.log("channels user", data);
-  //       setUserChannels(data.channels);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  console.log("userChannels", userChannels);
+  
   return (
     <div>
       <h2 className="font-bold pb-4 text-xl">Account Details</h2>

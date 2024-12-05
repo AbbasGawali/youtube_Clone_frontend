@@ -8,7 +8,7 @@ const Home = () => {
   const userChannel = useSelector(
     (store) => store.userChannel.userChannelDetails
   );
-  console.log("userChannel from redux in home", userChannel)
+  console.log("userChannel from redux in home", userChannel);
   useEffect(() => {
     // fetch videos
     const fetchData = async () => {
@@ -31,6 +31,8 @@ const Home = () => {
             title={item.title}
             channelId={item.channelId}
             thumbnailUrl={item.thumbnailUrl}
+            views={item.views}
+            createdAt={item.createdAt}
           />
         ))
       ) : (

@@ -1,29 +1,28 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { setUserState } from "../utils/userSlice";
 
-const CreateChannel = () => {
-  const dispatch = useDispatch();
+const UploadVideo = () => {
+  const navigate = useNavigate();
   const userChannel = useSelector(
     (store) => store.userChannel.userChannelDetails
   );
-  
   const user = useSelector((store) => store.user.userDetails);
   const jwtToken = useSelector((store) => store.user.token);
 
-  console.log(userChannel, "userChannel");
-  console.log(user, "user");
-
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userChannel && Object.keys(userChannel)?.length < 1) {
+      navigate("/");
+    }
+  }, []);
 
   const [formData, setFormData] = useState({
-    channelLogo: "",
-    channelName: "",
+    title: "",
+    thumbnailUrl: "",
     description: "",
-    channelBanner: "",
+    videoUrl: "",
   });
 
   const handleChange = (e) => {
@@ -31,15 +30,20 @@ const CreateChannel = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    let channelData = { ...formData, owner: user?._id };
+
+    let videoData = {
+      ...formData,
+      uploader: user?._id,
+      channelId: userChannel?._id,
+    };
+
     try {
       let result = await axios.post(
-        "http://localhost:8000/api/channel/createChannel",
-        channelData,
+        "http://localhost:8000/api/video/addVideo",
+        videoData,
         {
           headers: {
             Authorization: `JWT ${jwtToken}`,
@@ -48,35 +52,22 @@ const CreateChannel = () => {
       );
       console.log(result);
       if (result) {
-        toast.success("channel created");
-        fetchCurrentUser();
+        toast.success("video added");
+        // fetchCurrentUser();
+        // can fetch channel slice again to rerender
+        setFormData({
+          title: "",
+          thumbnailUrl: "",
+          description: "",
+          videoUrl: "",
+        });
+        navigate(`/channel/${userChannel?._id}`);
       }
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.message);
     }
   };
-
-  const fetchCurrentUser = async () => {
-    try {
-      let { data } = await axios.get(
-        `http://localhost:8000/api/users/${user?._id}`
-      );
-
-      if (data) {
-        dispatch(setUserState(data?.user));
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data?.message);
-    }
-  };
-
-  useEffect(() => {
-    if (userChannel && Object.keys(userChannel).length >= 1) {
-      navigate("/");
-    }
-  }, []);
 
   return (
     <div className="bg-slate-50 min-h-full py-32">
@@ -84,61 +75,54 @@ const CreateChannel = () => {
         onSubmit={handleFormSubmit}
         className="form flex p-6 flex-col w-2/4 mx-auto  bg-white"
       >
-        <h2 className="font-bold text-xl">How you will appear</h2>
+        <h2 className="font-bold text-xl">Video Upload</h2>
 
         <img
           className="w-44 mx-auto rounded-full"
           src={
-            formData?.channelLogo ||
-            "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+            "https://png.pngtree.com/png-vector/20190215/ourmid/pngtree-play-video-icon-graphic-design-template-vector-png-image_530837.jpg"
           }
           alt=""
         />
-        <label
-          className="text-slate-800 font-semibold py-4"
-          htmlFor="channelName"
-        >
-          Channel Name
+        <label className="text-slate-800 font-semibold py-4" htmlFor="title">
+          Video Title
         </label>
         <input
           className="border p-2 border-slate-400 rounded-sm"
-          id="channelName"
+          id="title"
           type="text"
           required
-          value={formData.channelName}
-          name="channelName"
+          value={formData.title}
+          name="title"
           onChange={handleChange}
         />
 
         <label
           className="text-slate-800 font-semibold py-4"
-          htmlFor="channelLogo"
+          htmlFor="thumbnailUrl"
         >
-          Channel Logo
+          Thumbnail Url
         </label>
         <input
           className="border p-2 border-slate-400 rounded-sm"
-          id="channelLogo"
+          id="thumbnailUrl"
           type="url"
           required
-          value={formData.channelLogo}
-          name="channelLogo"
+          value={formData.thumbnailUrl}
+          name="thumbnailUrl"
           onChange={handleChange}
         />
 
-        <label
-          className="text-slate-800 font-semibold py-4"
-          htmlFor="channelBanner"
-        >
-          Channel Banner
+        <label className="text-slate-800 font-semibold py-4" htmlFor="videoUrl">
+          Video Url
         </label>
         <input
           className="border p-2 border-slate-400 rounded-sm"
-          id="channelBanner"
+          id="videoUrl"
           type="url"
           required
-          value={formData.channelBanner}
-          name="channelBanner"
+          value={formData.videoUrl}
+          name="videoUrl"
           onChange={handleChange}
         />
 
@@ -146,9 +130,10 @@ const CreateChannel = () => {
           className="text-slate-800 font-semibold py-4"
           htmlFor="description"
         >
-          Channel Description
+          Video Description
         </label>
-        <input
+        <textarea
+          rows={5}
           className="border p-2 border-slate-400 rounded-sm"
           id="description"
           type="text"
@@ -162,11 +147,11 @@ const CreateChannel = () => {
           type="submit"
           className="hover:bg-black hover:text-white transition-all text-white rounded-sm border-black bg-slate-800  p-2 my-4"
         >
-          Create Channel
+          Upload
         </button>
       </form>
     </div>
   );
 };
 
-export default CreateChannel;
+export default UploadVideo;

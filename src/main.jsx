@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore.js";
 import UserAccount from "./components/UserAccount.jsx";
 import CreateChannel from "./components/CreateChannel.jsx";
+import UploadVideo from "./components/UploadVideo.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const appRouter = createBrowserRouter([
       { path: "/signUp", element: <SignUp /> },
       { path: "/userAccount/", element: <UserAccount /> },
       { path: "/createChannel", element: <CreateChannel /> },
+      { path: "/uploadVideo", element: <UploadVideo /> },
       { path: "/video/:id", element: <VideoView /> },
       { path: "/channel/:id", element: <ChannelDetail /> },
     ],

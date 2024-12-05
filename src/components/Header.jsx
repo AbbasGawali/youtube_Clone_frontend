@@ -31,7 +31,6 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
             `http://localhost:8000/api/channel/${user?.channel[0]}`
           );
           dispatch(setUserChannelDetails(data.channel));
-          setUserchannel(data.channel);
           console.log(data);
         } catch (error) {
           console.log(error);
@@ -73,7 +72,15 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
       <div className="userOp flex gap-4 relative">
         {user && Object.keys(user).length > 0 ? (
           <>
-            <RiVideoUploadLine size={20} />
+            {userChannel && Object.keys(userChannel).length >= 1 ? (
+              <>
+                <Link to={"/uploadVideo"}>
+                  <RiVideoUploadLine size={20} />
+                </Link>
+              </>
+            ) : (
+              ""
+            )}
             <FaRegBell size={20} />
             <FaUserCircle
               onClick={() => setToggle(!toggle)}

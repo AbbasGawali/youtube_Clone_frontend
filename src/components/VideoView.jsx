@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BiLike, BiDislike } from "react-icons/bi";
 import Comment from "./Comment";
+import timeAgo from "../utils/timeAgo";
+import formatNumber from "../utils/formatNumber";
 
 const VideoView = () => {
   const params = useParams();
@@ -11,6 +13,7 @@ const VideoView = () => {
   const [comments, setComments] = useState([]);
   const [channelData, setChannelData] = useState([]);
   const [videoUrl, setVideoUrl] = useState("");
+  console.log("video data", videoData);
   useEffect(() => {
     // fetch videos
     const fetchData = async () => {
@@ -50,16 +53,16 @@ const VideoView = () => {
   //   console.log("videourl", videoData.videoUrl.split("v=")[1]);
   //   src={videoData?.videoUrl?.split("v=")[1]}
   return (
-    <div className="flex "> 
+    <div className="flex ">
       <div className=" h-[28rem] w-[45rem] ">
         <iframe
           className=" w-full h-full"
           src={`https://www.youtube.com/embed/${videoUrl}?autoplay=1&rel=0`}
           title="YouTube video player"
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           rel="0"
-          autoplay="1"
+          autoPlay="1"
           allowFullScreen
         ></iframe>
         <div className="operations flex gap-2 justify-between py-4 items-center">
@@ -92,15 +95,11 @@ const VideoView = () => {
         </div>
 
         <div className="comments py-2 bg-slate-100 p-2">
-          <h2>
-            Hi description is here, Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Recusandae, veniam atque! Totam, illum quidem.
-            Dolor pariatur voluptatem maiores? Dolorem voluptas, impedit minima
-            iusto necessitatibus inventore animi nemo officiis ipsum. Aperiam
-            voluptas quo ex dolor laborum reprehenderit voluptate at quis amet,
-            earum omnis dicta laboriosam. Harum cupiditate tempora nostrum
-            consectetur alias.{" "}
-          </h2>
+          <div className="flex gap-2 py-2">
+            <h2>{formatNumber(videoData?.views)} Views </h2>
+            <h2>{timeAgo(videoData?.createdAt)}</h2>
+          </div>
+          <p> {videoData?.description}</p>
         </div>
         <div className="comments py-4 flex flex-col gap-4">
           {comments && comments?.length >= 1

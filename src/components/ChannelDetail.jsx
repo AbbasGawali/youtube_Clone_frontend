@@ -2,11 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import VideoCard from "./VideoCard";
+import timeAgo from "../utils/timeAgo";
+import { useSelector } from "react-redux";
 
 const ChannelDetail = () => {
   const params = useParams();
   const [channelData, setChannelData] = useState({});
   const [channelVideos, setChannelVideos] = useState([]);
+  const user = useSelector((store) => store.user.userDetails);
 
   useEffect(() => {
     const fetchChannelData = async () => {
@@ -21,7 +24,7 @@ const ChannelDetail = () => {
       }
     };
     fetchChannelData();
-  }, []);
+  }, [params]);
 
   const fetchVideos = async (channelId) => {
     const { data } = await axios.get(
@@ -32,8 +35,10 @@ const ChannelDetail = () => {
       setChannelVideos(data.videos);
     }
   };
+
   console.log("channel is ", channelData);
   console.log("channel videos is ", channelVideos);
+  console.log("user  is ", user);
   return (
     <div className="px-24">
       <img
@@ -49,7 +54,7 @@ const ChannelDetail = () => {
         />
         <div className="details">
           <h2 className="text-3xl font-bold">{channelData?.channelName}</h2>
-          <p>Videos : 23</p>
+          <p>Videos : {channelData?.videos?.length}</p>
           <p>Subscribers : {channelData?.subscribers}</p>
           {/* <p>Created At : {channelData?.createdAt.split("T")[0]}</p> */}
           <p>
@@ -60,7 +65,22 @@ const ChannelDetail = () => {
         </div>
       </div>
       <div className="toggles">
-        <h2 className="py-4 bg-slate-100 px-6 my-6 rounded-md">Videos</h2>
+        <h2 className="py-4 bg-slate-100 px-6 my-6 rounded-md flex gap-3 items-center">
+          Videos
+          {channelData?.owner == user?._id ? (
+            <>
+              :{" "}
+              <Link
+                to={"/uploadVideo"}
+                className=" transition-all bg-gray-700 text-white rounded-md  hover:bg-black px-4 py-1 border "
+              >
+                Upload Video
+              </Link>
+            </>
+          ) : (
+            ""
+          )}
+        </h2>
 
         {/* display video grid below */}
         <div className="flex flex-wrap gap-8">
@@ -70,15 +90,21 @@ const ChannelDetail = () => {
                 <Link to={`/video/${item._id}`}>
                   <img
                     src={item.thumbnailUrl}
-                    alt={item.title}
+                    alt={item.title.slice(0, 10) + "..."}
                     className="box w-96 h-52 border border-black"
                   />
                 </Link>
                 <div className="flex items-center gap-2 ps-2">
                   <div className="description">
                     {/* <h2>Video Title is here and you can watch it very easily </h2> */}
-                    <h2>{item.title}</h2>
-                    <p>1.3k views . 2 days ago</p>
+                    <h2>
+                      {item?.title?.length > 72
+                        ? item?.title.slice(0, 72) + "..."
+                        : item?.title}
+                    </h2>
+                    <p>
+                      {item?.views} views . {timeAgo(item?.createdAt)}
+                    </p>
                   </div>
                 </div>
               </div>
