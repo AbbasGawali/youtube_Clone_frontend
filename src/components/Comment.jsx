@@ -26,12 +26,16 @@ const Comment = ({
 
   useEffect(() => {
     const fetchOwner = async () => {
-      const { data } = await axios.get(
-        `http://localhost:8000/api/users/${owner}`
-      );
+      try {
+        const { data } = await axios.get(
+          `http://localhost:8000/api/users/${owner}`
+        );
 
-      if (data) {
-        setCommentOwner(data.user);
+        if (data) {
+          setCommentOwner(data.user);
+        }
+      } catch (error) {
+        console.log(error);
       }
     };
     fetchOwner();
@@ -82,7 +86,10 @@ const Comment = ({
           alt="avatar"
         />
         <div className="data flex flex-col gap-1">
-          <h2>{commentOwner?.userName} • <span className="text-slate-700">{timeAgo(createdAt)}</span></h2>
+          <h2>
+            {commentOwner?.userName} •{" "}
+            <span className="text-slate-700">{timeAgo(createdAt)}</span>
+          </h2>
 
           {isEditing ? (
             <input

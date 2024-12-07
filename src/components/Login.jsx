@@ -6,13 +6,14 @@ import { toast } from "react-toastify";
 import { setToken, setUserState } from "../utils/userSlice";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((store) => store.user.userDetails);
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((store) => store.user.userDetails);
 
   useEffect(() => {
     if (user && Object.keys(user).length > 0) {

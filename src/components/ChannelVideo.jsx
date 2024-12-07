@@ -2,24 +2,28 @@ import React, { useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { MdDeleteOutline } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import timeAgo from "../utils/timeAgo";
 import { useSelector } from "react-redux";
 import formatNumber from "../utils/formatNumber";
 import { toast } from "react-toastify";
 import axios from "axios";
+import UpdateVideoForm from "./UpdateVideoForm";
 
 const ChannelVideo = ({ triggerVideoFetching, item, channelData }) => {
   const user = useSelector((store) => store.user.userDetails);
-  const token = useSelector((store) => store.user.token);
-
+  const token = useSelector((store) => store.user.token); 
   const [op, setOp] = useState(false);
+  const navigate = useNavigate();
+
   const handleUpdate = (videoId) => {
     toast(videoId);
     setOp(false);
   };
 
-  const handleDelete = async (videoId) => { 
+
+  
+  const handleDelete = async (videoId) => {
     try {
       const result = await axios.delete(
         `http://localhost:8000/api/video/deleteVideo/${videoId}/${channelData?._id}/${user?._id}`,
@@ -75,13 +79,21 @@ const ChannelVideo = ({ triggerVideoFetching, item, channelData }) => {
                   op ? "block" : "hidden"
                 } absolute bg-gray-200 rounded-md shadow-md top-7 right-2`}
               >
+                {/* {isEditing ? (
+                  <UpdateVideoForm setIsEditing={setIsEditing} item={item} />
+                ) : ( */}
                 <li
-                  onClick={() => handleUpdate(item._id)}
+                  // onClick={() => handleUpdate(item._id)}
+                  onClick={() => {
+                    setOp(false);
+                    navigate(`/updateVideo/${item._id}`);
+                  }}
                   className="p-1 flex gap-1 items-center  px-4 cursor-pointer hover:bg-gray-100 w-full"
                 >
                   <CiEdit />
                   Edit
                 </li>
+                {/* )} */}
 
                 <li
                   onClick={() => handleDelete(item._id)}

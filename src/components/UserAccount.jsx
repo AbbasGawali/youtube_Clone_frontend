@@ -6,9 +6,11 @@ import { toast } from "react-toastify";
 
 const UserAccount = () => {
   const userDetails = useSelector((store) => store.user.userDetails);
+
   const userChannel = useSelector(
     (store) => store.userChannel.userChannelDetails
-  ); 
+  );
+
   console.log(userDetails);
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ const UserAccount = () => {
       navigate("/");
     }
   }, [userDetails]);
-  
+
   return (
     <div>
       <h2 className="font-bold pb-4 text-xl">Account Details</h2>

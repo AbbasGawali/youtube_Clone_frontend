@@ -85,19 +85,23 @@ const ChannelDetail = () => {
       </div>
       <div className="toggles">
         <h2 className="py-4 bg-slate-100 px-6 my-6 rounded-md flex gap-3 items-center">
-          Videos
           {channelData?.owner == user?._id ? (
             <>
-              :{" "}
               <Link
                 to={"/uploadVideo"}
                 className=" transition-all bg-gray-700 text-white rounded-md  hover:bg-black px-4 py-1 border "
               >
                 Upload Video
               </Link>
+              <Link
+                to={`/updateChannel/${channelData?._id}`}
+                className=" transition-all bg-gray-700 text-white rounded-md  hover:bg-black px-4 py-1 border "
+              >
+                Edit Channel
+              </Link>
             </>
           ) : (
-            ""
+            " Videos"
           )}
         </h2>
 
