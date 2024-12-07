@@ -4,12 +4,17 @@ import { Link, useParams } from "react-router-dom";
 import VideoCard from "./VideoCard";
 import timeAgo from "../utils/timeAgo";
 import { useSelector } from "react-redux";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import { MdDeleteOutline } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
+import ChannelVideo from "./ChannelVideo";
 
 const ChannelDetail = () => {
   const params = useParams();
   const [channelData, setChannelData] = useState({});
   const [channelVideos, setChannelVideos] = useState([]);
   const user = useSelector((store) => store.user.userDetails);
+  const [triggerVideoFetch, setTriggerVideoFetch] = useState(false);
 
   useEffect(() => {
     const fetchChannelData = async () => {
@@ -20,25 +25,39 @@ const ChannelDetail = () => {
       console.log(data, "channel");
       if (data) {
         setChannelData(data.channel);
-        fetchVideos(data?.channel?._id);
       }
     };
     fetchChannelData();
   }, [params]);
 
-  const fetchVideos = async (channelId) => {
-    const { data } = await axios.get(
-      `http://localhost:8000/api/video/channelVideos/${channelId}`
-    );
-    console.log(data?.channel?.channelName, "videos");
-    if (data) {
-      setChannelVideos(data.videos);
+  useEffect(() => {
+    console.log("channelData", channelData);
+    if (channelData) {
+      fetchVideos(channelData?._id);
     }
+  }, [channelData, triggerVideoFetch]);
+
+  const triggerVideoFetching = () => {
+    setTriggerVideoFetch(!triggerVideoFetch);
+  };
+
+  const fetchVideos = async (channelId) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8000/api/video/channelVideos/${channelId}`
+      );
+      console.log(data?.channel?.channelName, "videos");
+
+      if (data) {
+        setChannelVideos(data.videos);
+      }
+    } catch (error) {}
   };
 
   console.log("channel is ", channelData);
   console.log("channel videos is ", channelVideos);
   console.log("user  is ", user);
+
   return (
     <div className="px-24">
       <img
@@ -86,28 +105,12 @@ const ChannelDetail = () => {
         <div className="flex flex-wrap gap-8">
           {channelVideos && channelVideos.length >= 1 ? (
             channelVideos.map((item) => (
-              <div className="video_card w-96" key={item._id}>
-                <Link to={`/video/${item._id}`}>
-                  <img
-                    src={item.thumbnailUrl}
-                    alt={item.title.slice(0, 10) + "..."}
-                    className="box w-96 h-52 border border-black"
-                  />
-                </Link>
-                <div className="flex items-center gap-2 ps-2">
-                  <div className="description">
-                    {/* <h2>Video Title is here and you can watch it very easily </h2> */}
-                    <h2>
-                      {item?.title?.length > 72
-                        ? item?.title.slice(0, 72) + "..."
-                        : item?.title}
-                    </h2>
-                    <p>
-                      {item?.views} views . {timeAgo(item?.createdAt)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <ChannelVideo
+                triggerVideoFetching={triggerVideoFetching}
+                channelData={channelData}
+                key={item._id}
+                item={item}
+              />
             ))
           ) : (
             <h2>no videos to display</h2>
