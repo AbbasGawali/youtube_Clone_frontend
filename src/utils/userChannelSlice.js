@@ -8,6 +8,8 @@ const userChennelSlice = createSlice({
 
     reducers: {
         setUserChannelDetails: (state, action) => {
+
+            console.log("Setting userChannelDetails to:", action.payload);
             state.userChannelDetails = action.payload;
         },
         clearUserChannelDetails: (state, action) => {

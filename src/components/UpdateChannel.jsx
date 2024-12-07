@@ -67,7 +67,7 @@ const UpdateChannel = () => {
       );
       console.log("updated channel result", result);
       if (result) {
-        // dispatch(setUserChannelDetails(result.channel));
+        dispatch(setUserChannelDetails(result.data.channel));
         toast.success("channel updated");
         navigate(`/channel/${userChannel._id}`);
       }
