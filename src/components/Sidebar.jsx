@@ -13,18 +13,22 @@ import { MdOutlineWatchLater } from "react-icons/md";
 import { MdOutlineSubscriptions } from "react-icons/md";
 import { SiYoutubeshorts } from "react-icons/si";
 import { AiOutlineLike } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
-const Sidebar = ({ sideBarToggle }) => { 
+const Sidebar = ({ sideBarToggle }) => {
   return (
     <div
       className={`h-[100%] overflow-y-scroll py-2 w-72 pl-6 pr-1 ${
         sideBarToggle ? "hidden" : "flex"
       } flex-col gap-1`}
     >
-      <h2 className="hover:bg-gray-100 cursor-pointer transition-all px-2 py-2 flex items-center gap-2">
+      <Link
+        to={"/"}
+        className="hover:bg-gray-100 cursor-pointer transition-all px-2 py-2 flex items-center gap-2"
+      >
         <MdHome size={22} />
         Home
-      </h2>
+      </Link>
       <h2 className="hover:bg-gray-100 cursor-pointer transition-all px-2 py-2 flex items-center gap-2">
         <SiYoutubeshorts size={20} />
         Shorts
@@ -114,9 +118,8 @@ const Sidebar = ({ sideBarToggle }) => {
       <div className="border-t-2  "></div>
 
       <p className="  cursor-pointer transition-all px-2 py-2">
-        {/* About Press Copyright Contact us Creators Advertise Developers Terms
-        PrivacyPolicy & Safety How YouTube works Test new features */}
-        Abbas
+        About Press Copyright Contact us Creators Advertise Developers Terms
+        PrivacyPolicy & Safety How YouTube works Test new features
       </p>
 
       <div className="border-t-2  "></div>

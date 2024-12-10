@@ -23,6 +23,7 @@ const UploadVideo = () => {
     thumbnailUrl: "",
     description: "",
     videoUrl: "",
+    category: "",
   });
 
   const handleChange = (e) => {
@@ -39,6 +40,7 @@ const UploadVideo = () => {
       uploader: user?._id,
       channelId: userChannel?._id,
     };
+    
 
     try {
       let result = await axios.post(
@@ -59,6 +61,7 @@ const UploadVideo = () => {
           title: "",
           thumbnailUrl: "",
           description: "",
+          category: "",
           videoUrl: "",
         });
         navigate(`/channel/${userChannel?._id}`);
@@ -82,7 +85,7 @@ const UploadVideo = () => {
           src={
             "https://png.pngtree.com/png-vector/20190215/ourmid/pngtree-play-video-icon-graphic-design-template-vector-png-image_530837.jpg"
           }
-          alt=""
+          alt="video"
         />
         <label className="text-slate-800 font-semibold py-4" htmlFor="title">
           Video Title
@@ -125,6 +128,30 @@ const UploadVideo = () => {
           name="videoUrl"
           onChange={handleChange}
         />
+
+        <label className="text-slate-800 font-semibold py-4" htmlFor="category">
+          Category
+        </label>
+
+        <select
+          name="category"
+          className="border p-2 border-slate-400 rounded-sm"
+          required
+          value={formData.category}
+          onChange={handleChange}
+          id="category"
+        >
+          <option value="" disabled></option>
+          <option value="songs">Songs</option>
+          <option value="movies">Movies</option>
+          <option value="education">Education</option>
+          <option value="infotainment">Infotainment</option>
+          <option value="food">Food</option>
+          <option value="fashion">Fashion</option>
+          <option value="vlog">Vlog</option>
+          <option value="finance">Finance</option>
+          <option value="gaming">Gaming</option>
+        </select>
 
         <label
           className="text-slate-800 font-semibold py-4"

@@ -20,9 +20,71 @@ const VideoView = () => {
   const [comment, setcomment] = useState("");
   const [commentTrigger, setCommentTrigger] = useState(false);
   const user = useSelector((store) => store.user.userDetails);
+  const token = useSelector((store) => store.user.token);
 
   console.log(user, "user");
   console.log("video data", videoData);
+
+  const handleLike = async () => {
+    if (!user || Object.keys(user).length < 1) {
+      return toast.error("Login first");
+    }
+    try {
+      let uId = user._id;
+      const { data } = await axios.put(
+        `http://localhost:8000/api/video/likeVideo/${video}`,
+        { uId },
+        {
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        }
+      );
+      if (data) {
+        toast.success("video Liked");
+        console.log("liked data", data);
+        setVideoData((prev) => ({
+          ...prev,
+          likes: data.video.likes,
+          dislikes: data.video.dislikes,
+        }));
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
+  };
+
+  const handleDisLike = async () => {
+    if (!user || Object.keys(user).length < 1) {
+      return toast.error("Login first");
+    }
+
+    try {
+      let uId = user._id;
+      const { data } = await axios.put(
+        `http://localhost:8000/api/video/disLikeVideo/${video}`,
+        { uId },
+        {
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        }
+      );
+      if (data) {
+        toast.success("video Disliked");
+        setVideoData((prev) => ({
+          ...prev,
+          dislikes: data.video.dislikes,
+          likes: data.video.likes,
+        }));
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     // fetch videos
     const fetchData = async () => {
@@ -115,6 +177,31 @@ const VideoView = () => {
       console.log(error);
     }
   };
+
+  const handleSubscribe = async () => {
+    if (!user || Object.keys(user).length < 1) {
+      return toast.error("Login first");
+    }
+    try {
+      const { data } = await axios.put(
+        `http://localhost:8000/api/channel/subscribeChannel/${channelData?._id}/${user?._id}`,
+        {},
+        {
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        }
+      );
+      if (data) {
+        toast.success("channel subscribed");
+        console.log("channel subscribed", data);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex ">
       <div className=" h-[28rem] w-[60rem] ">
@@ -130,26 +217,42 @@ const VideoView = () => {
         ></iframe>
         <div className="operations flex gap-2 justify-between py-4 items-center">
           <div className="flex gap-2 items-center">
-            <img
-              className="channel cursor-pointer w-12 h-12 rounded-full border border-black"
-              src={channelData?.channelLogo}
-              alt="Channel name"
-            />
-            <h2 className="font-bold cursor-pointer">
-              {channelData?.channelName}
-            </h2>
-            <h2 className="px-4 py-1 cursor-pointer bg-black text-white   rounded-full">
+            <Link
+              to={`/channel/${channelData?._id}`}
+              className="flex items-center gap-2"
+            >
+              <img
+                className="channel cursor-pointer w-12 h-12 rounded-full border border-black"
+                src={channelData?.channelLogo}
+                alt="Channel name"
+              />
+              <h2 className="font-bold cursor-pointer">
+                {channelData?.channelName}
+              </h2>
+            </Link>
+            <button
+              onClick={handleSubscribe}
+              className="px-4 py-1 cursor-pointer bg-slate-800 transition-all hover:bg-black text-white   rounded-full"
+            >
               subscribe
-            </h2>
+            </button>
           </div>
           <div className="flex gap-2 items-center">
-            <button className="px-4 py-1 bg-slate-200 rounded-full flex items-center gap-2">
+            <button
+              onClick={handleLike}
+              className="px-4 py-1 bg-slate-200 rounded-full flex items-center gap-2"
+            >
               <BiLike />
-              like
+              <h2>|</h2>
+              {videoData?.likes?.length}
             </button>
-            <button className="px-4 py-1 bg-slate-200 rounded-full flex items-center gap-2">
+            <button
+              onClick={handleDisLike}
+              className="px-4 py-1 bg-slate-200 rounded-full flex items-center gap-2"
+            >
               <BiDislike />
-              dislike
+              <h2>|</h2>
+              {videoData?.dislikes?.length}
             </button>
             <button className="px-4 py-1 bg-slate-200 rounded-full">
               save
@@ -204,6 +307,7 @@ const VideoView = () => {
           {channelVideos && channelVideos.length >= 1
             ? channelVideos.map((item) => (
                 <Link
+                  key={item._id}
                   to={`/video/${item._id}`}
                   className="boxVideo flex gap-2  shadow-md rounded-md p-2"
                 >

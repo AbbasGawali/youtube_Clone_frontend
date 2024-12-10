@@ -3,7 +3,7 @@ import { GoSearch } from "react-icons/go";
 import { RiVideoUploadLine } from "react-icons/ri";
 import { FaRegBell } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearToken, clearUserState } from "../utils/userSlice";
@@ -14,7 +14,8 @@ import axios from "axios";
 export default function ({ sideBarToggle, setSideBarToggle }) {
   // const [userChannel, setUserchannel] = useState({});
   const [toggle, setToggle] = useState(false);
-
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   const user = useSelector((store) => store.user.userDetails);
   // const userChannel = useSelector((store) => store.user.userChannelDetails);
   const userChannel = useSelector(
@@ -50,6 +51,14 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
   const handleSideBarToggle = () => {
     setSideBarToggle(!sideBarToggle);
   };
+  const handleSearchSubmit = () => {
+    if (search.length <= 0) {
+      return toast.error("enter something to search");
+    }
+    navigate(`/search/${search}`);
+    setSearch("");
+  };
+
   return (
     <div className="header flex justify-between items-center py-3 px-6 shadow-sm">
       <div className="logo flex items-center gap-2">
@@ -59,17 +68,22 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
         </Link>
       </div>
       <div className="search flex items-center gap-2 relative ">
-        {" "}
         <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           type="text"
           placeholder="Search"
           className="border px-4 pr-16 py-1 outline-none  border-gray-200 rounded-full w-[34rem]"
         />
-        <div className="search bg-gray-200 rounded-r-full h-full flex items-center justify-center w-14 absolute right-0 ">
+        <button
+          type="submit"
+          onClick={handleSearchSubmit}
+          className="search cursor-pointer bg-gray-200 rounded-r-full h-full flex items-center justify-center w-14 absolute right-0 "
+        >
           <GoSearch className=" " size={20} />
-        </div>
+        </button>
       </div>
-      <div className="userOp flex gap-4 relative">
+      <div className="userOp flex items-center gap-4 relative">
         {user && Object.keys(user).length > 0 ? (
           <>
             {userChannel && Object.keys(userChannel).length >= 1 ? (
@@ -82,11 +96,24 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
               ""
             )}
             <FaRegBell size={20} />
-            <FaUserCircle
-              onClick={() => setToggle(!toggle)}
-              className="cursor-pointer"
-              size={20}
-            />
+            {user && Object.keys(user).length >= 1 ? (
+              <img
+                src={user?.avatar}
+                onClick={() => setToggle(!toggle)}
+                onError={(e) =>
+                  (e.target.src =
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrAe6Juu6QDvA4po0DCjhamerR5HnNsL8GWw&s")
+                }
+                className="w-8 h-8 cursor-pointer rounded-full border"
+                alt="userAvatar"
+              />
+            ) : (
+              <FaUserCircle
+                onClick={() => setToggle(!toggle)}
+                className="cursor-pointer"
+                size={20}
+              />
+            )}
             {toggle ? (
               <ul className="dropdown absolute right-0 top-12 bg-white border border-gray-200 rounded-lg shadow-lg w-48 z-10">
                 <Link

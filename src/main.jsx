@@ -15,6 +15,7 @@ import CreateChannel from "./components/CreateChannel.jsx";
 import UploadVideo from "./components/UploadVideo.jsx";
 import UpdateVideoForm from "./components/UpdateVideoForm.jsx";
 import UpdateChannel from "./components/updateChannel.jsx";
+import SearchVideos from "./components/SearchVideos.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const appRouter = createBrowserRouter([
       { path: "/uploadVideo", element: <UploadVideo /> },
       { path: "/updateVideo/:id", element: <UpdateVideoForm /> },
       { path: "/video/:id", element: <VideoView /> },
+      { path: "/search/:searchItem", element: <SearchVideos /> },
       { path: "/channel/:id", element: <ChannelDetail /> },
       { path: "/updateChannel/:id", element: <UpdateChannel /> },
     ],

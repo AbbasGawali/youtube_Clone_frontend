@@ -74,8 +74,8 @@ const ChannelDetail = () => {
         <div className="details">
           <h2 className="text-3xl font-bold">{channelData?.channelName}</h2>
           <p>Videos : {channelData?.videos?.length}</p>
-          <p>Subscribers : {channelData?.subscribers}</p>
-          {/* <p>Created At : {channelData?.createdAt.split("T")[0]}</p> */}
+          <p>Subscribers : {channelData?.subscribers?.length}</p>
+          <p>Created At : {channelData?.createdAt?.split("T")[0]}</p>
           <p>
             {channelData?.description?.length >= 330
               ? channelData?.description.slice(0, 330) + "..."
