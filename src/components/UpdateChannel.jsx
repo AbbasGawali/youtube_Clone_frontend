@@ -33,10 +33,9 @@ const UpdateChannel = () => {
 
   const fetchChannelData = async () => {
     const { data } = await axios.get(
-      `http://localhost:8000/api/channel/${params.id}`
+      `https://youtube-clone-backend-4sfa.onrender.com/api/channel/${params.id}`
     );
-    if (data) {
-      console.log("data of channel", data);
+    if (data) { 
 
       setFormData({
         channelLogo: data?.channel?.channelLogo || "",
@@ -57,15 +56,14 @@ const UpdateChannel = () => {
 
     try {
       let result = await axios.put(
-        `http://localhost:8000/api/channel/updateChannel/${params.id}/${user._id}`,
+        `https://youtube-clone-backend-4sfa.onrender.com/api/channel/updateChannel/${params.id}/${user._id}`,
         formData,
         {
           headers: {
             Authorization: `JWT ${jwtToken}`,
           },
         }
-      );
-      console.log("updated channel result", result);
+      ); 
       if (result) {
         dispatch(setUserChannelDetails(result.data.channel));
         toast.success("channel updated");

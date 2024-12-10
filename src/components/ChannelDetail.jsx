@@ -19,10 +19,8 @@ const ChannelDetail = () => {
   useEffect(() => {
     const fetchChannelData = async () => {
       const { data } = await axios.get(
-        `http://localhost:8000/api/channel/${params.id}`
-      );
-      console.log(data, "data");
-      console.log(data, "channel");
+        `https://youtube-clone-backend-4sfa.onrender.com/api/channel/${params.id}`
+      ); 
       if (data) {
         setChannelData(data.channel);
       }
@@ -30,8 +28,7 @@ const ChannelDetail = () => {
     fetchChannelData();
   }, [params]);
 
-  useEffect(() => {
-    console.log("channelData", channelData);
+  useEffect(() => { 
     if (channelData) {
       fetchVideos(channelData?._id);
     }
@@ -44,20 +41,15 @@ const ChannelDetail = () => {
   const fetchVideos = async (channelId) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/video/channelVideos/${channelId}`
-      );
-      console.log(data?.channel?.channelName, "videos");
+        `https://youtube-clone-backend-4sfa.onrender.com/api/video/channelVideos/${channelId}`
+      ); 
 
       if (data) {
         setChannelVideos(data.videos);
       }
     } catch (error) {}
   };
-
-  console.log("channel is ", channelData);
-  console.log("channel videos is ", channelVideos);
-  console.log("user  is ", user);
-
+ 
   return (
     <div className="px-24">
       <img

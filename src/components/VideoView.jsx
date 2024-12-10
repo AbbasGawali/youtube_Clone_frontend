@@ -21,9 +21,7 @@ const VideoView = () => {
   const [commentTrigger, setCommentTrigger] = useState(false);
   const user = useSelector((store) => store.user.userDetails);
   const token = useSelector((store) => store.user.token);
-
-  console.log(user, "user");
-  console.log("video data", videoData);
+ 
 
   const handleLike = async () => {
     if (!user || Object.keys(user).length < 1) {
@@ -32,7 +30,7 @@ const VideoView = () => {
     try {
       let uId = user._id;
       const { data } = await axios.put(
-        `http://localhost:8000/api/video/likeVideo/${video}`,
+        `https://youtube-clone-backend-4sfa.onrender.com/api/video/likeVideo/${video}`,
         { uId },
         {
           headers: {
@@ -41,8 +39,7 @@ const VideoView = () => {
         }
       );
       if (data) {
-        toast.success("video Liked");
-        console.log("liked data", data);
+        toast.success("video Liked"); 
         setVideoData((prev) => ({
           ...prev,
           likes: data.video.likes,
@@ -63,7 +60,7 @@ const VideoView = () => {
     try {
       let uId = user._id;
       const { data } = await axios.put(
-        `http://localhost:8000/api/video/disLikeVideo/${video}`,
+        `https://youtube-clone-backend-4sfa.onrender.com/api/video/disLikeVideo/${video}`,
         { uId },
         {
           headers: {
@@ -89,7 +86,7 @@ const VideoView = () => {
     // fetch videos
     const fetchData = async () => {
       const { data } = await axios.get(
-        `http://localhost:8000/api/video/${video}`
+        `https://youtube-clone-backend-4sfa.onrender.com/api/video/${video}`
       );
       if (data) {
         setVideoData(data.video);
@@ -108,16 +105,13 @@ const VideoView = () => {
       fetchVideoComments();
     }
   }, [videoData, commentTrigger]);
+ 
 
-  console.log("channel videos", channelVideos);
-
-  const fetchChannelVideos = async (id) => {
-    // console.log(channelData, "channelData");
+  const fetchChannelVideos = async (id) => { 
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/video/channelVideos/${id}`
-      );
-      console.log("response data of channel ideos", data);
+        `https://youtube-clone-backend-4sfa.onrender.com/api/video/channelVideos/${id}`
+      ); 
 
       if (data) {
         setChannelVideos(data.videos);
@@ -129,7 +123,7 @@ const VideoView = () => {
 
   const fetchChannelData = async (cId) => {
     const { data } = await axios.get(
-      `http://localhost:8000/api/channel/${cId}`
+      `https://youtube-clone-backend-4sfa.onrender.com/api/channel/${cId}`
     );
     if (data) {
       setChannelData(data.channel);
@@ -138,7 +132,7 @@ const VideoView = () => {
 
   const fetchVideoComments = async () => {
     const { data } = await axios.get(
-      `http://localhost:8000/api/comment/videoComments/${video}`
+      `https://youtube-clone-backend-4sfa.onrender.com/api/comment/videoComments/${video}`
     );
 
     if (data) {
@@ -164,7 +158,7 @@ const VideoView = () => {
     };
     try {
       const data = await axios.post(
-        "http://localhost:8000/api/comment/addComment",
+        "https://youtube-clone-backend-4sfa.onrender.com/api/comment/addComment",
         commentData
       );
       if (data) {
@@ -184,7 +178,7 @@ const VideoView = () => {
     }
     try {
       const { data } = await axios.put(
-        `http://localhost:8000/api/channel/subscribeChannel/${channelData?._id}/${user?._id}`,
+        `https://youtube-clone-backend-4sfa.onrender.com/api/channel/subscribeChannel/${channelData?._id}/${user?._id}`,
         {},
         {
           headers: {
@@ -193,8 +187,7 @@ const VideoView = () => {
         }
       );
       if (data) {
-        toast.success("channel subscribed");
-        console.log("channel subscribed", data);
+        toast.success("channel subscribed"); 
       }
     } catch (error) {
       toast.error(error.response.data.message);

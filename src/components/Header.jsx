@@ -21,7 +21,6 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
   const userChannel = useSelector(
     (store) => store.userChannel.userChannelDetails
   );
-  console.log("in header, userchannel is this ", userChannel);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,10 +28,9 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
       const fetchUserChannel = async () => {
         try {
           let { data } = await axios.get(
-            `http://localhost:8000/api/channel/${user?.channel[0]}`
+            `https://youtube-clone-backend-4sfa.onrender.com/api/channel/${user?.channel[0]}`
           );
           dispatch(setUserChannelDetails(data.channel));
-          console.log(data);
         } catch (error) {
           console.log(error);
         }
@@ -60,20 +58,35 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
   };
 
   return (
-    <div className="header flex justify-between items-center py-3 px-6 shadow-sm">
-      <div className="logo flex items-center gap-2">
-        <IoMdMenu size={20} onClick={handleSideBarToggle} />
+    <div className="header flex justify-between items-center py-3 px-2 sm:px-6  shadow-sm">
+      <div className="logo flex items-center gap-1 sm:gap-2">
+        <IoMdMenu
+          className="hidden sm:block"
+          size={20}
+          onClick={handleSideBarToggle}
+        />
         <Link to={"/"}>
-          <img src="/images/youtubeLogo.png" alt="Youtube" className="w-24" />
+          <img
+            src="/images/ytLogoSmall.webp"
+            alt="Youtube"
+            className="block xs:hidden w-8 xs:w-24"
+          />
+        </Link>
+        <Link to={"/"}>
+          <img
+            src="/images/youtubeLogo.png"
+            alt="Youtube"
+            className="hidden xs:block w-12 xs:w-24"
+          />
         </Link>
       </div>
-      <div className="search flex items-center gap-2 relative ">
+      <div className="search w-[65%] flex items-center gap-2 relative ">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
           placeholder="Search"
-          className="border px-4 pr-16 py-1 outline-none  border-gray-200 rounded-full w-[34rem]"
+          className="border px-4 pr-16 py-1 outline-none  border-gray-200 rounded-full w-40 sm:w-[34rem]"
         />
         <button
           type="submit"
@@ -88,14 +101,14 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
           <>
             {userChannel && Object.keys(userChannel).length >= 1 ? (
               <>
-                <Link to={"/uploadVideo"}>
+                <Link className="hidden sm:block" to={"/uploadVideo"}>
                   <RiVideoUploadLine size={20} />
                 </Link>
               </>
             ) : (
               ""
             )}
-            <FaRegBell size={20} />
+            <FaRegBell className="hidden sm:block" size={20} />
             {user && Object.keys(user).length >= 1 ? (
               <img
                 src={user?.avatar}
@@ -117,6 +130,14 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
             {toggle ? (
               <ul className="dropdown absolute right-0 top-12 bg-white border border-gray-200 rounded-lg shadow-lg w-48 z-10">
                 <Link
+                  onClick={() => setToggle(false)}
+                  to={"/"}
+                  className="py-2 block w-full px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer rounded"
+                >
+                  Home
+                </Link>
+
+                <Link
                   to={"/userAccount"}
                   onClick={() => setToggle(false)}
                   className="py-2 px-4 text-sm text-gray-700 w-full block hover:bg-gray-100 cursor-pointer rounded"
@@ -124,13 +145,22 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
                   My Account
                 </Link>
                 {userChannel && Object.keys(userChannel).length >= 1 ? (
-                  <Link
-                    onClick={() => setToggle(false)}
-                    to={`/channel/${userChannel._id}`}
-                    className="py-2 block w-full px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer rounded"
-                  >
-                    My Channel
-                  </Link>
+                  <>
+                    <Link
+                      onClick={() => setToggle(false)}
+                      to={`/channel/${userChannel._id}`}
+                      className="py-2 block w-full px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer rounded"
+                    >
+                      My Channel
+                    </Link>
+                    <Link
+                      to={"/uploadVideo"}
+                      onClick={() => setToggle(false)}
+                      className="py-2 px-4 text-sm text-gray-700 w-full block hover:bg-gray-100 cursor-pointer rounded"
+                    >
+                      Upload Video
+                    </Link>
+                  </>
                 ) : (
                   <Link
                     onClick={() => setToggle(false)}
@@ -140,13 +170,7 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
                     Create Channel
                   </Link>
                 )}
-                <Link
-                  onClick={() => setToggle(false)}
-                  to={"/"}
-                  className="py-2 block w-full px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer rounded"
-                >
-                  Home
-                </Link>
+
                 <li
                   onClick={handleLogout}
                   className="py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer rounded"

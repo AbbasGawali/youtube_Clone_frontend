@@ -9,16 +9,14 @@ const SearchVideos = () => {
 
   const params = useParams();
   useEffect(() => {
-    const fetchVideos = async () => {
-      console.log("request made ");
+    const fetchVideos = async () => { 
       try {
         const { data } = await axios.get(
-          `http://localhost:8000/api/video/search/${params.searchItem}`
+          `https://youtube-clone-backend-4sfa.onrender.com/api/video/search/${params.searchItem}`
         );
         if (data) {
           setSearchvideos(data.videos);
-        }
-        console.log("data from search", data);
+        } 
       } catch (error) {
         console.log(error);
         toast.error(error.response.data.message);

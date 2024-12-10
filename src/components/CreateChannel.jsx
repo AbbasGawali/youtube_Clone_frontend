@@ -13,10 +13,7 @@ const CreateChannel = () => {
   
   const user = useSelector((store) => store.user.userDetails);
   const jwtToken = useSelector((store) => store.user.token);
-
-  console.log(userChannel, "userChannel");
-  console.log(user, "user");
-
+ 
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -33,20 +30,18 @@ const CreateChannel = () => {
 
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
+    e.preventDefault(); 
     let channelData = { ...formData, owner: user?._id };
     try {
       let result = await axios.post(
-        "http://localhost:8000/api/channel/createChannel",
+        "https://youtube-clone-backend-4sfa.onrender.com/api/channel/createChannel",
         channelData,
         {
           headers: {
             Authorization: `JWT ${jwtToken}`,
           },
         }
-      );
-      console.log(result);
+      ); 
       if (result) {
         toast.success("channel created");
         fetchCurrentUser();
@@ -60,7 +55,7 @@ const CreateChannel = () => {
   const fetchCurrentUser = async () => {
     try {
       let { data } = await axios.get(
-        `http://localhost:8000/api/users/${user?._id}`
+        `https://youtube-clone-backend-4sfa.onrender.com/api/users/${user?._id}`
       );
 
       if (data) {

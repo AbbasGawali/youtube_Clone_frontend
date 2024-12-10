@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import formatNumber from "../utils/formatNumber";
+import timeAgo from "../utils/timeAgo";
 
 const SearchVideoView = ({ item }) => {
   const [channelData, setChannelData] = useState([]);
@@ -9,7 +11,7 @@ const SearchVideoView = ({ item }) => {
     // fetch videos
     const fetchData = async () => {
       const { data } = await axios.get(
-        `http://localhost:8000/api/channel/${item?.channelId}`
+        `https://youtube-clone-backend-4sfa.onrender.com/api/channel/${item?.channelId}`
       );
       if (data) {
         setChannelData(data.channel);
@@ -17,27 +19,34 @@ const SearchVideoView = ({ item }) => {
     };
     fetchData();
   }, []);
-  console.log("channel data in search", channelData);
   return (
     <Link
       to={`/video/${item._id}`}
-      className="border  rounded-md shadow-md flex p-4 gap-4 w-[85%]"
+      className="border  rounded-md shadow-md flex-col sm:flex-row sm:flex p-4 gap-4 w-full   xl:w-[85%]"
     >
-      <img className="w-96" src={item?.thumbnailUrl} alt="video thumbnail" />
-      <div className="data ">
-        <h2 className="font-semibold text-xl">{item?.title}</h2>
-        <p>
-          {item?.views} . {item?.createdAt}
-        </p>
-        <div className="flex font-semibold py-2 gap-2 items-center">
+      <img
+        className="sm:w-32 md:w-44 mlg:w-56  lg:w-96"
+        src={item?.thumbnailUrl}
+        alt="video thumbnail"
+      />
+      <div className="data flex gap-4 sm:gap-0 flex-row-reverse sm:flex-col">
+        <div className="">
+          <h2 className="font-semibold sm:text-[12px] md:text-xl">
+            {item?.title}
+          </h2>
+          <p>
+            {formatNumber(item?.views)} views . {timeAgo(item?.createdAt)}
+          </p>
+        </div>
+        <div className="flex text-[12px] md:text-sm font-semibold  sm:py-1  md:py-2 gap-2 items-center">
           <img
-            className="w-10 rounded-full h-10 border border-black"
+            className="w-20 sm:w-5 md:w-10 sm:h-5 md:h-10 rounded-full  border border-black"
             src={channelData?.channelLogo}
             alt="channel logo"
           />
-          <h2>{channelData?.channelName}</h2>
+          <h2 className=" hidden sm:block ">{channelData?.channelName}</h2>
         </div>
-        <p>
+        <p className="hidden sm:block  sm:text-[12px] md:text-sm ">
           {item?.description.length > 198
             ? item?.description.slice(0, 198) + "..."
             : item?.description}{" "}

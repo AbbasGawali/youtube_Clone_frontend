@@ -23,13 +23,12 @@ const Home = () => {
   const userChannel = useSelector(
     (store) => store.userChannel.userChannelDetails
   );
-
-  console.log("userChannel from redux in home", userChannel);
+ 
 
   useEffect(() => {
     // fetch videos
     const fetchData = async () => {
-      const { data } = await axios.get("http://localhost:8000/api/video/");
+      const { data } = await axios.get("https://youtube-clone-backend-4sfa.onrender.com/api/video/");
       if (data) {
         setvideos(data.videos);
         setFilteredData(data.videos);
@@ -38,8 +37,7 @@ const Home = () => {
     fetchData();
   }, []);
 
-  const handleFilter = (filteredItem) => {
-    console.log(filteredItem);
+  const handleFilter = (filteredItem) => { 
     if (filteredItem == "All") {
       setFilteredData(videos);
     } else {
@@ -50,8 +48,7 @@ const Home = () => {
       );
     }
   };
-
-  console.log("filteredData", filteredData);
+ 
   return (
     <>
       {/* <h2>Category</h2> */}

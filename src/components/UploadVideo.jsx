@@ -32,8 +32,7 @@ const UploadVideo = () => {
   };
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
+    e.preventDefault(); 
 
     let videoData = {
       ...formData,
@@ -44,19 +43,16 @@ const UploadVideo = () => {
 
     try {
       let result = await axios.post(
-        "http://localhost:8000/api/video/addVideo",
+        "https://youtube-clone-backend-4sfa.onrender.com/api/video/addVideo",
         videoData,
         {
           headers: {
             Authorization: `JWT ${jwtToken}`,
           },
         }
-      );
-      console.log(result);
+      ); 
       if (result) {
-        toast.success("video added");
-        // fetchCurrentUser();
-        // can fetch channel slice again to rerender
+        toast.success("video added"); 
         setFormData({
           title: "",
           thumbnailUrl: "",

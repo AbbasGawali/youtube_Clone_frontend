@@ -24,10 +24,9 @@ const UpdateVideoForm = () => {
     // fetch videos
     const fetchData = async () => {
       const { data } = await axios.get(
-        `http://localhost:8000/api/video/${params.id}`
+        `https://youtube-clone-backend-4sfa.onrender.com/api/video/${params.id}`
       );
-
-      console.log("data", data.video.uploader);
+ 
       if (data.video.uploader !== user._id) {
         navigate("/");
         toast.error("unauthorised access !");
@@ -51,21 +50,19 @@ const UpdateVideoForm = () => {
   };
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
+    e.preventDefault(); 
 
     // /updateVideo/:id/:cId/:uId
     try {
       let result = await axios.put(
-        `http://localhost:8000/api/video/updateVideo/${params.id}/${userChannel?._id}/${user?._id}`,
+        `https://youtube-clone-backend-4sfa.onrender.com/api/video/updateVideo/${params.id}/${userChannel?._id}/${user?._id}`,
         formData,
         {
           headers: {
             Authorization: `JWT ${jwtToken}`,
           },
         }
-      );
-      console.log(result);
+      ); 
       if (result) {
         toast.success("video updated");
         setFormData({

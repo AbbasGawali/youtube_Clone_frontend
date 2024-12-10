@@ -34,7 +34,7 @@ const SignUp = () => {
     try {
       const { userName, email, password, avatar } = formData;
       let { data } = await axios.post(
-        "http://localhost:8000/api/users/signUp",
+        "https://youtube-clone-backend-4sfa.onrender.com/api/users/signUp",
         {
           userName,
           email,

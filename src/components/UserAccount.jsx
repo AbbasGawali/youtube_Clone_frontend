@@ -11,7 +11,6 @@ const UserAccount = () => {
     (store) => store.userChannel.userChannelDetails
   );
 
-  console.log(userDetails);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +23,7 @@ const UserAccount = () => {
   return (
     <div>
       <h2 className="font-bold pb-4 text-xl">Account Details</h2>
-      <div className="box  flex w-2/4 gap-4 items-center p-4 rounded-md shadow-md   border-black">
+      <div className="box flex-col sm:flex-row  flex w-full md:w-2/3   gap-4 sm:items-center p-4 rounded-md shadow-md   border-black">
         <img
           src={userDetails?.avatar}
           className="rounded-full w-40"
@@ -40,7 +39,7 @@ const UserAccount = () => {
         Channels associated with your account
       </h2>
 
-      <div className="box  flex w-2/4 gap-4 items-center p-4 rounded-md shadow-md   border-black">
+      <div className="box  flex w-full md:w-2/3 gap-4 items-center p-4 rounded-md shadow-md   border-black">
         {userChannel && Object.keys(userChannel).length >= 1 ? (
           <div key={userChannel._id} className="p-4 shadow-md">
             {" "}

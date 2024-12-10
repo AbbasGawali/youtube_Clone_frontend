@@ -18,8 +18,8 @@ import { Link } from "react-router-dom";
 const Sidebar = ({ sideBarToggle }) => {
   return (
     <div
-      className={`h-[100%] overflow-y-scroll py-2 w-72 pl-6 pr-1 ${
-        sideBarToggle ? "hidden" : "flex"
+      className={`h-[100%] hidden   overflow-y-scroll py-2 w-72 pl-6 pr-1 ${
+        sideBarToggle ? "hidden" : "sm:flex"
       } flex-col gap-1`}
     >
       <Link
