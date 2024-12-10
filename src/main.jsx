@@ -14,7 +14,7 @@ import UserAccount from "./components/UserAccount.jsx";
 import CreateChannel from "./components/CreateChannel.jsx";
 import UploadVideo from "./components/UploadVideo.jsx";
 import UpdateVideoForm from "./components/UpdateVideoForm.jsx";
-import UpdateChannel from "./components/updateChannel.jsx";
+import UpdateChannel from "./components/UpdateChannel.jsx";
 import SearchVideos from "./components/SearchVideos.jsx";
 
 const appRouter = createBrowserRouter([
