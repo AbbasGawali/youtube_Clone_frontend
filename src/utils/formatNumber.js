@@ -1,3 +1,4 @@
+// function to format numbers 
 const formatNumber = (num) => {
     if (num < 1000) {
         return num.toString(); // Return as-is for numbers less than 1000

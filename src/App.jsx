@@ -12,16 +12,20 @@ function App() {
 
   return (
     <>
+      {/* header */}
       <Header
         sideBarToggle={sideBarToggle}
         setSideBarToggle={setSideBarToggle}
       />
 
       <div className="flex h-[calc(100vh-64px)]">
+        {/* sidebar  */}
         <Sidebar sideBarToggle={sideBarToggle} />
         <div className=" w-full px-4 py-4 overflow-y-auto">
+          {/* changing the content of routes below */}
           <Outlet />
         </div>
+        {/* toast container for toast messages */}
         <ToastContainer />
       </div>
     </>

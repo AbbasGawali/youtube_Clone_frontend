@@ -1,12 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import VideoCard from "./VideoCard";
-import timeAgo from "../utils/timeAgo";
 import { useSelector } from "react-redux";
-import { HiOutlineDotsVertical } from "react-icons/hi";
-import { MdDeleteOutline } from "react-icons/md";
-import { CiEdit } from "react-icons/ci";
 import ChannelVideo from "./ChannelVideo";
 import Loader from "./Loader";
 

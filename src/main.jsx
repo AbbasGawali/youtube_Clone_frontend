@@ -18,6 +18,7 @@ import UpdateChannel from "./components/UpdateChannel.jsx";
 import SearchVideos from "./components/SearchVideos.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
 
+// router setup for routing
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -40,7 +41,9 @@ const appRouter = createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    {/* using resux store with provider */}
     <Provider store={appStore}>
+      {/* using approuter for routing */}
       <RouterProvider router={appRouter} />
     </Provider>
   </StrictMode>

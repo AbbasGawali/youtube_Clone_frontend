@@ -1,3 +1,4 @@
+// function to calculate the time 
 const timeAgo = (date) => {
     const givenDate = new Date(date); // Convert to Date object
     const now = new Date(); // Current date and time
