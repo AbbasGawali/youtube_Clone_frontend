@@ -2,10 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
 import { useSelector } from "react-redux";
+import Loader from "./Loader";
 
 const Home = () => {
   const [videos, setvideos] = useState([]);
   const [filteredData, setFilteredData] = useState(videos);
+  const [loading, setLoading] = useState(false);
 
   const categories = [
     "All",
@@ -23,21 +25,29 @@ const Home = () => {
   const userChannel = useSelector(
     (store) => store.userChannel.userChannelDetails
   );
- 
 
   useEffect(() => {
     // fetch videos
     const fetchData = async () => {
-      const { data } = await axios.get("https://youtube-clone-backend-4sfa.onrender.com/api/video/");
-      if (data) {
-        setvideos(data.videos);
-        setFilteredData(data.videos);
+      setLoading(true);
+      try {
+        const { data } = await axios.get(
+          "https://youtube-clone-backend-4sfa.onrender.com/api/video/"
+        );
+        if (data) {
+          setvideos(data.videos);
+          setFilteredData(data.videos);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  const handleFilter = (filteredItem) => { 
+  const handleFilter = (filteredItem) => {
     if (filteredItem == "All") {
       setFilteredData(videos);
     } else {
@@ -48,11 +58,11 @@ const Home = () => {
       );
     }
   };
- 
+
   return (
     <>
       {/* <h2>Category</h2> */}
-      <div className="category flex gap-4 py-2">
+      <div className="category flex gap-4 py-2 w-full overflow-x-scroll scrollbar-hide   ">
         {categories?.map((item) => (
           <span
             onClick={() => handleFilter(item)}
@@ -67,20 +77,26 @@ const Home = () => {
       <div className="flex flex-wrap gap-8 my-2">
         {/* video card  */}
 
-        {filteredData && filteredData.length >= 1 ? (
-          filteredData.map((item) => (
-            <VideoCard
-              key={item._id}
-              videoId={item._id}
-              title={item.title}
-              channelId={item.channelId}
-              thumbnailUrl={item.thumbnailUrl}
-              views={item.views}
-              createdAt={item.createdAt}
-            />
-          ))
+        {loading ? (
+          <Loader />
         ) : (
-          <h2>no videos to display</h2>
+          <>
+            {filteredData && filteredData.length >= 1 ? (
+              filteredData.map((item) => (
+                <VideoCard
+                  key={item._id}
+                  videoId={item._id}
+                  title={item.title}
+                  channelId={item.channelId}
+                  thumbnailUrl={item.thumbnailUrl}
+                  views={item.views}
+                  createdAt={item.createdAt}
+                />
+              ))
+            ) : (
+              <h2>no videos to display</h2>
+            )}
+          </>
         )}
       </div>
     </>

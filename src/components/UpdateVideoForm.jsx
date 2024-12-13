@@ -26,7 +26,7 @@ const UpdateVideoForm = () => {
       const { data } = await axios.get(
         `https://youtube-clone-backend-4sfa.onrender.com/api/video/${params.id}`
       );
- 
+
       if (data.video.uploader !== user._id) {
         navigate("/");
         toast.error("unauthorised access !");
@@ -50,7 +50,7 @@ const UpdateVideoForm = () => {
   };
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     // /updateVideo/:id/:cId/:uId
     try {
@@ -62,7 +62,7 @@ const UpdateVideoForm = () => {
             Authorization: `JWT ${jwtToken}`,
           },
         }
-      ); 
+      );
       if (result) {
         toast.success("video updated");
         setFormData({
@@ -83,7 +83,7 @@ const UpdateVideoForm = () => {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="updateVideo form flex p-6 flex-col w-2/4 mx-auto  bg-white"
+      className="updateVideo form flex  xs:p-6 flex-col  w-[90%] xs:w-4/5 sm:w-2/4  mx-auto  bg-white"
     >
       <h2 className="font-bold text-xl">Edit Video</h2>
 
@@ -98,7 +98,7 @@ const UpdateVideoForm = () => {
         Video Title
       </label>
       <input
-        className="border p-2 border-slate-400 rounded-sm"
+        className="border p-1  xs:p-2 border-slate-400 rounded-sm"
         id="title"
         type="text"
         required
@@ -114,7 +114,7 @@ const UpdateVideoForm = () => {
         Thumbnail Url
       </label>
       <input
-        className="border p-2 border-slate-400 rounded-sm"
+        className="border p-1  xs:p-2 border-slate-400 rounded-sm"
         id="thumbnailUrl"
         type="url"
         required
@@ -127,7 +127,7 @@ const UpdateVideoForm = () => {
         Video Url
       </label>
       <input
-        className="border p-2 border-slate-400 rounded-sm"
+        className="border p-1  xs:p-2 border-slate-400 rounded-sm"
         id="videoUrl"
         type="url"
         required
@@ -142,7 +142,7 @@ const UpdateVideoForm = () => {
 
       <select
         name="category"
-        className="border p-2 border-slate-400 rounded-sm"
+        className="border p-1  xs:p-2 border-slate-400 rounded-sm"
         required
         value={formData.category}
         onChange={handleChange}
@@ -168,7 +168,7 @@ const UpdateVideoForm = () => {
       </label>
       <textarea
         rows={5}
-        className="border p-2 border-slate-400 rounded-sm"
+        className="border p-1  xs:p-2 border-slate-400 rounded-sm"
         id="description"
         type="text"
         value={formData.description}
@@ -179,7 +179,7 @@ const UpdateVideoForm = () => {
 
       <button
         type="submit"
-        className="hover:bg-black hover:text-white transition-all text-white rounded-sm border-black bg-slate-800  p-2 my-4"
+        className="hover:bg-black hover:text-white transition-all text-white rounded-sm border-black bg-slate-800  p-1  xs:p-2 my-4"
       >
         Save
       </button>

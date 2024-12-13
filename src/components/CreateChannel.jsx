@@ -10,10 +10,10 @@ const CreateChannel = () => {
   const userChannel = useSelector(
     (store) => store.userChannel.userChannelDetails
   );
-  
+
   const user = useSelector((store) => store.user.userDetails);
   const jwtToken = useSelector((store) => store.user.token);
- 
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -28,9 +28,8 @@ const CreateChannel = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
   const handleFormSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     let channelData = { ...formData, owner: user?._id };
     try {
       let result = await axios.post(
@@ -41,7 +40,7 @@ const CreateChannel = () => {
             Authorization: `JWT ${jwtToken}`,
           },
         }
-      ); 
+      );
       if (result) {
         toast.success("channel created");
         fetchCurrentUser();
@@ -77,7 +76,7 @@ const CreateChannel = () => {
     <div className="bg-slate-50 min-h-full py-32">
       <form
         onSubmit={handleFormSubmit}
-        className="form flex p-6 flex-col w-2/4 mx-auto  bg-white"
+        className="form flex xs:p-6 flex-col w-[90%] xs:w-4/5 sm:w-2/4 mx-auto   bg-white"
       >
         <h2 className="font-bold text-xl">How you will appear</h2>
 
@@ -96,7 +95,7 @@ const CreateChannel = () => {
           Channel Name
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border p-1  xs:p-2 border-slate-400 rounded-sm"
           id="channelName"
           type="text"
           required
@@ -112,7 +111,7 @@ const CreateChannel = () => {
           Channel Logo
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border p-1  xs:p-2 border-slate-400 rounded-sm"
           id="channelLogo"
           type="url"
           required
@@ -128,7 +127,7 @@ const CreateChannel = () => {
           Channel Banner
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border p-1  xs:p-2 border-slate-400 rounded-sm"
           id="channelBanner"
           type="url"
           required
@@ -144,7 +143,7 @@ const CreateChannel = () => {
           Channel Description
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border p-1  xs:p-2 border-slate-400 rounded-sm"
           id="description"
           type="text"
           value={formData.description}
@@ -155,7 +154,7 @@ const CreateChannel = () => {
 
         <button
           type="submit"
-          className="hover:bg-black hover:text-white transition-all text-white rounded-sm border-black bg-slate-800  p-2 my-4"
+          className="hover:bg-black hover:text-white transition-all text-white rounded-sm border-black bg-slate-800  p-1  xs:p-2 my-4"
         >
           Create Channel
         </button>

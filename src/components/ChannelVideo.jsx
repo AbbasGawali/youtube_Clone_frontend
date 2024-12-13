@@ -12,7 +12,7 @@ import UpdateVideoForm from "./UpdateVideoForm";
 
 const ChannelVideo = ({ triggerVideoFetching, item, channelData }) => {
   const user = useSelector((store) => store.user.userDetails);
-  const token = useSelector((store) => store.user.token); 
+  const token = useSelector((store) => store.user.token);
   const [op, setOp] = useState(false);
   const navigate = useNavigate();
 
@@ -21,8 +21,6 @@ const ChannelVideo = ({ triggerVideoFetching, item, channelData }) => {
     setOp(false);
   };
 
-
-  
   const handleDelete = async (videoId) => {
     try {
       const result = await axios.delete(
@@ -46,12 +44,12 @@ const ChannelVideo = ({ triggerVideoFetching, item, channelData }) => {
   };
 
   return (
-    <div className="video_card w-96 " key={item._id}>
+    <div className="video_card w-96 sm:w-80 " key={item._id}>
       <Link to={`/video/${item._id}`}>
         <img
           src={item.thumbnailUrl}
           alt={item.title.slice(0, 10) + "..."}
-          className="box w-96 h-52 border border-black"
+          className="box  w-96  xs:h-52 border border-black"
         />
       </Link>
       <div className="flex items-start  justify-between gap-2 ps-2">
@@ -79,11 +77,7 @@ const ChannelVideo = ({ triggerVideoFetching, item, channelData }) => {
                   op ? "block" : "hidden"
                 } absolute bg-gray-200 rounded-md shadow-md top-7 right-2`}
               >
-                {/* {isEditing ? (
-                  <UpdateVideoForm setIsEditing={setIsEditing} item={item} />
-                ) : ( */}
                 <li
-                  // onClick={() => handleUpdate(item._id)}
                   onClick={() => {
                     setOp(false);
                     navigate(`/updateVideo/${item._id}`);
@@ -93,7 +87,6 @@ const ChannelVideo = ({ triggerVideoFetching, item, channelData }) => {
                   <CiEdit />
                   Edit
                 </li>
-                {/* )} */}
 
                 <li
                   onClick={() => handleDelete(item._id)}

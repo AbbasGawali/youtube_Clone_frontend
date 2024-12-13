@@ -85,7 +85,7 @@ const Comment = ({
           src={commentOwner?.avatar}
           alt="avatar"
         />
-        <div className="data flex flex-col gap-1">
+        <div className="data text-[14px] sm:text-[16px] flex flex-col gap-1">
           <h2>
             {commentOwner?.userName} •{" "}
             <span className="text-slate-700">{timeAgo(createdAt)}</span>

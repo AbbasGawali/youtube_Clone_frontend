@@ -9,7 +9,7 @@ export default {
       'xs': '380px',
       'sm': '680px',
       'md': '880px',
-      'mlg': '1024px',
+      'mlg': '1065px',
       'lg': '1280px',
       'xl': '1380px',
       'xxl': '1580px',

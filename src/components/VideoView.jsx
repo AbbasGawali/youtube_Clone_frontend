@@ -21,7 +21,6 @@ const VideoView = () => {
   const [commentTrigger, setCommentTrigger] = useState(false);
   const user = useSelector((store) => store.user.userDetails);
   const token = useSelector((store) => store.user.token);
- 
 
   const handleLike = async () => {
     if (!user || Object.keys(user).length < 1) {
@@ -39,7 +38,7 @@ const VideoView = () => {
         }
       );
       if (data) {
-        toast.success("video Liked"); 
+        toast.success("video Liked");
         setVideoData((prev) => ({
           ...prev,
           likes: data.video.likes,
@@ -105,13 +104,12 @@ const VideoView = () => {
       fetchVideoComments();
     }
   }, [videoData, commentTrigger]);
- 
 
-  const fetchChannelVideos = async (id) => { 
+  const fetchChannelVideos = async (id) => {
     try {
       const { data } = await axios.get(
         `https://youtube-clone-backend-4sfa.onrender.com/api/video/channelVideos/${id}`
-      ); 
+      );
 
       if (data) {
         setChannelVideos(data.videos);
@@ -187,7 +185,7 @@ const VideoView = () => {
         }
       );
       if (data) {
-        toast.success("channel subscribed"); 
+        toast.success("channel subscribed");
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -196,10 +194,10 @@ const VideoView = () => {
   };
 
   return (
-    <div className="flex ">
-      <div className=" h-[28rem] w-[60rem] ">
+    <div className="flex flex-col   mlg:flex-row ">
+      <div className="  mlg:w-[60rem]   ">
         <iframe
-          className=" w-full h-full"
+          className=" w-full h-[30vh] xs:h-[50vh] md:h-[28rem] "
           src={`https://www.youtube.com/embed/${videoUrl}?autoplay=1&rel=0`}
           title="YouTube video player"
           frameBorder="0"
@@ -208,8 +206,8 @@ const VideoView = () => {
           autoPlay="1"
           allowFullScreen
         ></iframe>
-        <div className="operations flex gap-2 justify-between py-4 items-center">
-          <div className="flex gap-2 items-center">
+        <div className="operations flex flex-col sm:flex-row gap-2 justify-between   py-4 items-center">
+          <div className="flex gap-2 pb-2 sm:pb-0 w-full items-center">
             <Link
               to={`/channel/${channelData?._id}`}
               className="flex items-center gap-2"
@@ -230,7 +228,7 @@ const VideoView = () => {
               subscribe
             </button>
           </div>
-          <div className="flex gap-2 items-center">
+          <div className="flex text-[14px] sm:text-[16px] w-full gap-2 items-center  sm:justify-end">
             <button
               onClick={handleLike}
               className="px-4 py-1 bg-slate-200 rounded-full flex items-center gap-2"
@@ -258,7 +256,10 @@ const VideoView = () => {
             <h2>{formatNumber(videoData?.views)} Views •</h2>
             <h2>{timeAgo(videoData?.createdAt)}</h2>
           </div>
-          <p> {videoData?.description}</p>
+          <p className="text-[14px] sm:text-[16px]">
+            {" "}
+            {videoData?.description}
+          </p>
         </div>
 
         <div className="addComment flex flex-col items-end">
@@ -268,11 +269,11 @@ const VideoView = () => {
             onChange={(e) => setcomment(e.target.value)}
             value={comment}
             placeholder="comment here"
-            className=" outline-none w-full border-b-2 border-black my-2 p-2"
+            className=" outline-none w-full border-b-2 border-black my-2 p-2 text-[14px] sm:text-[16px]"
           />
           <button
             onClick={handleComment}
-            className="  bg-white w-36 p-1 border border-black hover:bg-black hover:text-white transition-all"
+            className="  bg-white text-[14px] sm:text-[16px] w-36 p-1 border border-black hover:bg-black hover:text-white transition-all"
           >
             Comment
           </button>
@@ -294,7 +295,7 @@ const VideoView = () => {
             : "No comments to display"}
         </div>
       </div>
-      <div className="sideView px-4 w-[40rem]">
+      <div className="sideView px-4 mlg:w-[40rem]    ">
         <h2 className="text-xl py-4">Channel related videos</h2>
         <div className="flex flex-col gap-4">
           {channelVideos && channelVideos.length >= 1
@@ -302,21 +303,23 @@ const VideoView = () => {
                 <Link
                   key={item._id}
                   to={`/video/${item._id}`}
-                  className="boxVideo flex gap-2  shadow-md rounded-md p-2"
+                  className="boxVideo flex items-center sm:items-start gap-2  shadow-md rounded-md p-2"
                 >
                   <img
-                    className="w-44 rounded-md"
+                    className="w-16  h-14   sm:h-auto sm:w-44 rounded-md"
                     src={item?.thumbnailUrl}
                     alt="video img"
                   />
                   <div className="details">
-                    <h2>
+                    <h2 className="text-[14px] sm:text-[16px]">
                       {item?.title.length > 55
                         ? item?.title?.slice(0, 55) + "..."
                         : item?.title}
                     </h2>
-                    <h2>{channelData?.channelName}</h2>
-                    <h2>
+                    <h2 className="text-[14px] sm:text-[16px]">
+                      {channelData?.channelName}
+                    </h2>
+                    <h2 className="text-[14px] sm:text-[16px]">
                       {formatNumber(item?.views)} • {timeAgo(item?.createdAt)}{" "}
                     </h2>
                   </div>

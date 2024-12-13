@@ -1,8 +1,54 @@
-# React + Vite
+# React + Vite YouTube Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a **YouTube Clone** built using **React** and **Vite**. The application replicates key functionalities of YouTube, focusing on user authentication, video management, and interactive features such as commenting and searching. This is the **frontend** of the application and is designed to integrate with a backend that supports JWT authentication and bcrypt.js for password hashing.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Authentication**:
+  - User signup and login using JWT and bcrypt.js.
+  - Authentication state is managed using Redux Toolkit slices.
+
+- **Video Management**:
+  - Upload, edit, and delete videos.
+  - Filter videos based on categories.
+
+- **Channel Management**:
+  - Create a channel (only for authenticated users).
+  - Edit channel details.
+
+- **Comment System**:
+  - Add comments below videos.
+  - Edit or delete comments (restricted to comment owners).
+
+- **Navigation and Search**:
+  - Sidebar with quick links and categories.
+  - Search bar for video searching.
+
+- **Error Handling**:
+  - Dedicated error route page for handling 404 and other errors.
+
+---
+
+## Technologies Used
+- **Frontend Framework**: React
+- **Build Tool**: Vite
+- **State Management**: Redux Toolkit
+- **Styling**: Tailwind CSS
+- **Routing**: React Router
+- **Libraries**:
+  - Axios (for API requests)
+  - JWT-decode (for decoding JWT tokens)
+
+---
+
+## Getting Started
+
+### Prerequisites
+Make sure you have the following installed:
+- [Node.js](https://nodejs.org/) (v14 or above)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+
+### run the proj
+- npm install
+- npm run dev

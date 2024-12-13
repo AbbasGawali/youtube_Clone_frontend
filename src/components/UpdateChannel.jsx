@@ -35,8 +35,7 @@ const UpdateChannel = () => {
     const { data } = await axios.get(
       `https://youtube-clone-backend-4sfa.onrender.com/api/channel/${params.id}`
     );
-    if (data) { 
-
+    if (data) {
       setFormData({
         channelLogo: data?.channel?.channelLogo || "",
         channelName: data?.channel?.channelName || "",
@@ -63,7 +62,7 @@ const UpdateChannel = () => {
             Authorization: `JWT ${jwtToken}`,
           },
         }
-      ); 
+      );
       if (result) {
         dispatch(setUserChannelDetails(result.data.channel));
         toast.success("channel updated");
@@ -79,7 +78,7 @@ const UpdateChannel = () => {
     <div className="bg-slate-50 min-h-full py-32">
       <form
         onSubmit={handleFormSubmit}
-        className="form flex p-6 flex-col w-2/4 mx-auto  bg-white"
+        className="form flex   xs:p-6 flex-col w-[90%] xs:w-4/5 sm:w-2/4 mx-auto  bg-white"
       >
         <h2 className="font-bold text-xl">How you will appear</h2>
 
@@ -98,7 +97,7 @@ const UpdateChannel = () => {
           Channel Name
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border p-1  xs:p-2 border-slate-400 rounded-sm"
           id="channelName"
           type="text"
           required
@@ -114,7 +113,7 @@ const UpdateChannel = () => {
           Channel Logo
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border p-1  xs:p-2 border-slate-400 rounded-sm"
           id="channelLogo"
           type="url"
           required
@@ -130,7 +129,7 @@ const UpdateChannel = () => {
           Channel Banner
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border p-1  xs:p-2 border-slate-400 rounded-sm"
           id="channelBanner"
           type="url"
           required
@@ -146,7 +145,7 @@ const UpdateChannel = () => {
           Channel Description
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border p-1  xs:p-2 border-slate-400 rounded-sm"
           id="description"
           type="text"
           value={formData.description}
@@ -157,7 +156,7 @@ const UpdateChannel = () => {
 
         <button
           type="submit"
-          className="hover:bg-black hover:text-white transition-all text-white rounded-sm border-black bg-slate-800  p-2 my-4"
+          className="hover:bg-black hover:text-white transition-all text-white rounded-sm border-black bg-slate-800  p-1  xs:p-2 my-4"
         >
           Update Channel
         </button>

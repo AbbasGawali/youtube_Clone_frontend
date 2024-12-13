@@ -16,11 +16,13 @@ import UploadVideo from "./components/UploadVideo.jsx";
 import UpdateVideoForm from "./components/UpdateVideoForm.jsx";
 import UpdateChannel from "./components/UpdateChannel.jsx";
 import SearchVideos from "./components/SearchVideos.jsx";
+import ErrorPage from "./components/ErrorPage.jsx";
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
       { path: "/login", element: <Login /> },

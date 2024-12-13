@@ -32,14 +32,13 @@ const UploadVideo = () => {
   };
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     let videoData = {
       ...formData,
       uploader: user?._id,
       channelId: userChannel?._id,
     };
-    
 
     try {
       let result = await axios.post(
@@ -50,9 +49,9 @@ const UploadVideo = () => {
             Authorization: `JWT ${jwtToken}`,
           },
         }
-      ); 
+      );
       if (result) {
-        toast.success("video added"); 
+        toast.success("video added");
         setFormData({
           title: "",
           thumbnailUrl: "",
@@ -72,7 +71,7 @@ const UploadVideo = () => {
     <div className="bg-slate-50 min-h-full py-32">
       <form
         onSubmit={handleFormSubmit}
-        className="form flex p-6 flex-col w-2/4 mx-auto  bg-white"
+        className="form flex   xs:p-6 flex-col w-[90%] xs:w-4/5 sm:w-2/4 mx-auto  bg-white"
       >
         <h2 className="font-bold text-xl">Video Upload</h2>
 
@@ -87,7 +86,7 @@ const UploadVideo = () => {
           Video Title
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border  p-1  xs:p-2 border-slate-400 rounded-sm"
           id="title"
           type="text"
           required
@@ -103,7 +102,7 @@ const UploadVideo = () => {
           Thumbnail Url
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border   p-1  xs:p-2 border-slate-400 rounded-sm"
           id="thumbnailUrl"
           type="url"
           required
@@ -116,7 +115,7 @@ const UploadVideo = () => {
           Video Url
         </label>
         <input
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border   p-1  xs:p-2 border-slate-400 rounded-sm"
           id="videoUrl"
           type="url"
           required
@@ -131,7 +130,7 @@ const UploadVideo = () => {
 
         <select
           name="category"
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border   p-1  xs:p-2 border-slate-400 rounded-sm"
           required
           value={formData.category}
           onChange={handleChange}
@@ -157,7 +156,7 @@ const UploadVideo = () => {
         </label>
         <textarea
           rows={5}
-          className="border p-2 border-slate-400 rounded-sm"
+          className="border   p-1  xs:p-2 border-slate-400 rounded-sm"
           id="description"
           type="text"
           value={formData.description}
@@ -168,7 +167,7 @@ const UploadVideo = () => {
 
         <button
           type="submit"
-          className="hover:bg-black hover:text-white transition-all text-white rounded-sm border-black bg-slate-800  p-2 my-4"
+          className="hover:bg-black hover:text-white transition-all text-white rounded-sm border-black bg-slate-800    p-1  xs:p-2 my-4"
         >
           Upload
         </button>

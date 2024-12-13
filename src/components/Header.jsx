@@ -80,13 +80,13 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
           />
         </Link>
       </div>
-      <div className="search w-[65%] flex items-center gap-2 relative ">
+      <div className="search w-[80%] xs:w-[65%]  sm:w-[50%] md:w-[38%] xxl:w-[36%]   flex items-center gap-2 relative ">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
           placeholder="Search"
-          className="border px-4 pr-16 py-1 outline-none  border-gray-200 rounded-full w-40 sm:w-[34rem]"
+          className="border px-4 pr-16 py-[2px] xs:py-1 outline-none  border-gray-200 rounded-full w-full sm:w-[34rem] xxl:w-full"
         />
         <button
           type="submit"
