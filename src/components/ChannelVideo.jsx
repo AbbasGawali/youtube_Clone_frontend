@@ -7,15 +7,15 @@ import timeAgo from "../utils/timeAgo";
 import { useSelector } from "react-redux";
 import formatNumber from "../utils/formatNumber";
 import { toast } from "react-toastify";
-import axios from "axios"; 
+import axios from "axios";
 
 const ChannelVideo = ({ triggerVideoFetching, item, channelData }) => {
   const user = useSelector((store) => store.user.userDetails);
   const token = useSelector((store) => store.user.token);
   const [op, setOp] = useState(false);
   const navigate = useNavigate();
- 
 
+  // delete video function
   const handleDelete = async (videoId) => {
     try {
       const result = await axios.delete(
@@ -48,7 +48,7 @@ const ChannelVideo = ({ triggerVideoFetching, item, channelData }) => {
         />
       </Link>
       <div className="flex items-start  justify-between gap-2 ps-2">
-        <div className="description"> 
+        <div className="description">
           <h2>
             {item?.title?.length > 72
               ? item?.title.slice(0, 72) + "..."

@@ -31,6 +31,7 @@ const UpdateChannel = () => {
     }
   }, []);
 
+  // function to fetch channel details
   const fetchChannelData = async () => {
     const { data } = await axios.get(
       `https://youtube-clone-backend-4sfa.onrender.com/api/channel/${params.id}`
@@ -45,11 +46,13 @@ const UpdateChannel = () => {
     }
   };
 
+  // onchange function
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // function to update channel
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 

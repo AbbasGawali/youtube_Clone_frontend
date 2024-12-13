@@ -12,7 +12,9 @@ const ChannelDetail = () => {
   const user = useSelector((store) => store.user.userDetails);
   const [triggerVideoFetch, setTriggerVideoFetch] = useState(false);
   const [loading, setloading] = useState(false);
+
   useEffect(() => {
+    // function to fetch data of channel with id
     const fetchChannelData = async () => {
       try {
         const { data } = await axios.get(
@@ -34,10 +36,12 @@ const ChannelDetail = () => {
     }
   }, [channelData, triggerVideoFetch]);
 
+  // trigger function to rerender the component
   const triggerVideoFetching = () => {
     setTriggerVideoFetch(!triggerVideoFetch);
   };
 
+  // function to fetch videos
   const fetchVideos = async (channelId) => {
     setloading(true);
     try {

@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const ErrorPage = () => {
+  // error page if any wrong route passed
   const navigate = useNavigate();
   return (
     <div className="text-center gap-2 p-4 font-bold flex-col flex items-center justify-center h-screen">

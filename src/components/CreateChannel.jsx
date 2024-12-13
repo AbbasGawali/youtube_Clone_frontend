@@ -28,6 +28,7 @@ const CreateChannel = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // function to create channel
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     let channelData = { ...formData, owner: user?._id };
@@ -51,6 +52,7 @@ const CreateChannel = () => {
     }
   };
 
+  // functin to fetch current user
   const fetchCurrentUser = async () => {
     try {
       let { data } = await axios.get(

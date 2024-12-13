@@ -5,11 +5,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { setToken, setUserState } from "../utils/userSlice";
 
-const SignUp = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user.userDetails);
-  
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -21,6 +21,7 @@ const SignUp = () => {
     }
   }, [navigate, user]);
 
+  // login function
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
@@ -28,10 +29,13 @@ const SignUp = () => {
     }
     try {
       const { email, password } = formData;
-      let { data } = await axios.post("https://youtube-clone-backend-4sfa.onrender.com/api/users/login", {
-        email,
-        password,
-      });
+      let { data } = await axios.post(
+        "https://youtube-clone-backend-4sfa.onrender.com/api/users/login",
+        {
+          email,
+          password,
+        }
+      );
       if (data) {
         toast.success(data.message);
         dispatch(setUserState(data.user));
@@ -43,6 +47,7 @@ const SignUp = () => {
     }
   };
 
+  // onchange function
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -100,4 +105,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

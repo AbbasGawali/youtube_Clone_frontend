@@ -8,7 +8,7 @@ const SearchVideoView = ({ item }) => {
   const [channelData, setChannelData] = useState([]);
 
   useEffect(() => {
-    // fetch videos
+    // fetch channel with id
     const fetchData = async () => {
       const { data } = await axios.get(
         `https://youtube-clone-backend-4sfa.onrender.com/api/channel/${item?.channelId}`

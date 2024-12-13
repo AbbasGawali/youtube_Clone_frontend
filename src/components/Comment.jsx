@@ -25,6 +25,7 @@ const Comment = ({
   const [op, setOp] = useState(false);
 
   useEffect(() => {
+    // fetching the owner of comment 
     const fetchOwner = async () => {
       try {
         const { data } = await axios.get(
@@ -41,6 +42,8 @@ const Comment = ({
     fetchOwner();
   }, []);
 
+
+  // function to deletecomment
   const handleDelete = async () => {
     try {
       const result = await axios.delete(
@@ -57,6 +60,7 @@ const Comment = ({
     }
   };
 
+  // function to update comment
   const handleUpdate = async () => {
     try {
       const result = await axios.put(

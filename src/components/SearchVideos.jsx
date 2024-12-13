@@ -9,6 +9,7 @@ const SearchVideos = () => {
 
   const params = useParams();
   useEffect(() => {
+    // fetching videos related to the characters passed by uer
     const fetchVideos = async () => { 
       try {
         const { data } = await axios.get(

@@ -21,7 +21,7 @@ const UpdateVideoForm = () => {
   });
 
   useEffect(() => {
-    // fetch videos
+    // fetch video with id
     const fetchData = async () => {
       const { data } = await axios.get(
         `https://youtube-clone-backend-4sfa.onrender.com/api/video/${params.id}`
@@ -49,10 +49,10 @@ const UpdateVideoForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // functino to update a video
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // /updateVideo/:id/:cId/:uId
     try {
       let result = await axios.put(
         `https://youtube-clone-backend-4sfa.onrender.com/api/video/updateVideo/${params.id}/${userChannel?._id}/${user?._id}`,

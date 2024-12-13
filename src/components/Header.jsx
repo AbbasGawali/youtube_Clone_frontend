@@ -12,12 +12,10 @@ import { setUserChannelDetails } from "../utils/userChannelSlice";
 import axios from "axios";
 
 export default function ({ sideBarToggle, setSideBarToggle }) {
-  // const [userChannel, setUserchannel] = useState({});
   const [toggle, setToggle] = useState(false);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const user = useSelector((store) => store.user.userDetails);
-  // const userChannel = useSelector((store) => store.user.userChannelDetails);
   const userChannel = useSelector(
     (store) => store.userChannel.userChannelDetails
   );
@@ -39,6 +37,7 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
     }
   }, [user]);
 
+  // function to logout
   const handleLogout = () => {
     dispatch(clearToken());
     dispatch(clearUserState());
@@ -46,9 +45,12 @@ export default function ({ sideBarToggle, setSideBarToggle }) {
     setToggle(false);
   };
 
+  // function to toggle sidebar
   const handleSideBarToggle = () => {
     setSideBarToggle(!sideBarToggle);
   };
+
+  // function to search using searchbar
   const handleSearchSubmit = () => {
     if (search.length <= 0) {
       return toast.error("enter something to search");

@@ -47,6 +47,7 @@ const Home = () => {
     fetchData();
   }, []);
 
+  // filtering video based on category
   const handleFilter = (filteredItem) => {
     if (filteredItem == "All") {
       setFilteredData(videos);
@@ -61,7 +62,7 @@ const Home = () => {
 
   return (
     <>
-      {/* <h2>Category</h2> */}
+      {/*  Category  */}
       <div className="category flex gap-4 py-2 w-full overflow-x-scroll scrollbar-hide   ">
         {categories?.map((item) => (
           <span

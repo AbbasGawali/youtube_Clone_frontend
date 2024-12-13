@@ -22,6 +22,7 @@ const VideoView = () => {
   const user = useSelector((store) => store.user.userDetails);
   const token = useSelector((store) => store.user.token);
 
+  // like function for video
   const handleLike = async () => {
     if (!user || Object.keys(user).length < 1) {
       return toast.error("Login first");
@@ -51,6 +52,7 @@ const VideoView = () => {
     }
   };
 
+  // disLike function for video
   const handleDisLike = async () => {
     if (!user || Object.keys(user).length < 1) {
       return toast.error("Login first");
@@ -82,7 +84,7 @@ const VideoView = () => {
   };
 
   useEffect(() => {
-    // fetch videos
+    // fetch video
     const fetchData = async () => {
       const { data } = await axios.get(
         `https://youtube-clone-backend-4sfa.onrender.com/api/video/${video}`
@@ -105,6 +107,7 @@ const VideoView = () => {
     }
   }, [videoData, commentTrigger]);
 
+  // fetching channel videos
   const fetchChannelVideos = async (id) => {
     try {
       const { data } = await axios.get(
@@ -119,6 +122,7 @@ const VideoView = () => {
     }
   };
 
+  // function to fetch channel data
   const fetchChannelData = async (cId) => {
     const { data } = await axios.get(
       `https://youtube-clone-backend-4sfa.onrender.com/api/channel/${cId}`
@@ -128,6 +132,7 @@ const VideoView = () => {
     }
   };
 
+  // function to fetch video comments
   const fetchVideoComments = async () => {
     const { data } = await axios.get(
       `https://youtube-clone-backend-4sfa.onrender.com/api/comment/videoComments/${video}`
@@ -138,10 +143,12 @@ const VideoView = () => {
     }
   };
 
+  // trigger function to rerender component
   const triggerCommentFetch = () => {
     setCommentTrigger(!commentTrigger);
   };
 
+  // function to add comment
   const handleComment = async () => {
     if (comment == "") {
       return toast.error("comment cannot be empty!");
@@ -170,6 +177,7 @@ const VideoView = () => {
     }
   };
 
+  // function to subscribe to channel
   const handleSubscribe = async () => {
     if (!user || Object.keys(user).length < 1) {
       return toast.error("Login first");

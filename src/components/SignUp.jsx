@@ -20,9 +20,9 @@ const SignUp = () => {
       navigate("/");
     }
   }, [navigate, user]);
-
+  // signup function to create a user
   const handleFormSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     if (
       !formData.email ||
       !formData.password ||
@@ -41,7 +41,7 @@ const SignUp = () => {
           password,
           avatar,
         }
-      ); 
+      );
       if (data) {
         toast.success(data.message);
       }

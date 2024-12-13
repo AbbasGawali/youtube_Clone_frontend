@@ -31,6 +31,7 @@ const UploadVideo = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // function to upload video, only if user is logged in and has a channel
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
